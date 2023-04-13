@@ -16,7 +16,7 @@ export default function Header() {
     if (user) {
         return (
             <>
-                <div className="bg-dark_grey w-[100%] h-[80px]">
+                <div className="bg-dark_grey w-[100%] h-[80px] mb-[5vh]">
                     <div className="h-[100%] flex justify-between pr-[3vw]">
                         <Link to="/">
                             <div className='flex gap-7 h-[100%] w-[28rem] bg-black pl-[2vw]'>
