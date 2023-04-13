@@ -19,7 +19,7 @@ export default function FourOFour() {
           <div className='m-auto rounded-[10px] h-[80%] bg-black w-[90%]'>
             <div className='text-center flex gap-5 w-[100%] px-[4%] py-[3%] flex-col'>
               <h1 className='text-[3.5rem] font-semibold'>404 Error - Page Not Found</h1>
-              <Link to={'/'} className="font-semibold m-auto cursor-pointer w-fit text-[3rem] border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[2.75vw] py-[.4vh] w-fit align-middle">Go Home</Link>
+              <Link to={'/'} className="font-semibold m-auto cursor-pointer w-fit text-[3rem] border-b-[2px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[2.75vw] py-[.4vh] w-fit align-middle">Go Home</Link>
             </div>
           </div>
         </div>
