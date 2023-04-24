@@ -10,6 +10,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SignedOut from '../SignedOut';
 
+
 export default function Home() {
     const [user] = useAuthState(auth);
 
