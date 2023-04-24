@@ -3,10 +3,12 @@ const path = require('path');
 
 const app = express();
 
+// Serve static files from the React app in build folder
 app.use(express.static(path.join(__dirname, '../front_end/build')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../front_end/build/index.html'));
+// Handles any requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3005;
