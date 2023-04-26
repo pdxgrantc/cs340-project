@@ -8,7 +8,7 @@ module.exports = {
       transparent: 'transparent',
       black: '#000',
       dark_grey: '#141414',
-      white: '#fff',
+      white: '#ffffff',
       main_bg_color: '#181823',
       text_white: '#d6d6d6',
       outline_dark: "#808080",

@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SignedOut from '../SignedOut';
+import { Link } from 'react-router-dom';
 
 export default function AllRecipes() {
   const [user] = useAuthState(auth);
@@ -33,9 +34,9 @@ export default function AllRecipes() {
         <Helmet>
           <title>All Recipes</title>
         </Helmet>
-        <div className="bg-main_bg_color text-text_white h-[100vh] flex flex-col">
+        <div className="bg-main_bg_color text-text_white min-h-[100vh] flex flex-col">
           <Header />
-          <div className="w-full h-max basis-auto grow">
+          <div className="w-full basis-auto grow">
             <div className='m-auto rounded-[10px] h-[80%] bg-black w-[90%]'>
               <div className='flex gap-20 w-[100%] px-[4%] py-[3%]'>
                 <RecipeList />
@@ -62,17 +63,19 @@ function RecipeList() {
   }, []);
 
   return (
-    <div>
-      <h1>Recipes</h1>
-      <ul>
-        {recipes.map((recipe) => (
-          <li key={recipe.id}>
-            <h2>{recipe.title}</h2>
-            <img src={recipe.image_url} alt={recipe.title} />
-            <p>{recipe.description}</p>
-          </li>
+    <div className='flex flex-col'>
+      <h1 className='text-[3.25rem] font-semibold pl-8'>All Recipes</h1>
+      <div className='grid grid-cols-2 gap-2'>
+        {recipes.map((recipe) => ( 
+          <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
+            <div className='flex flex-col gap-3 px-8 py-3 hover:bg-button_pressed_color w-full rounded-[4px]'>
+              <h2 className='text-[2.5rem] font-semibold'>{recipe.title}</h2>
+              <img className='max-h-[450px] rounded-[4px]' src={recipe.image_url} alt={recipe.title} />
+              <p className='text-[1.5rem]'>{recipe.description}</p>
+            </div>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

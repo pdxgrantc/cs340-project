@@ -38,7 +38,7 @@ VALUES
     (
         'Chicken Alfredo',
         'Creamy fettuccine alfredo with grilled chicken',
-        'https://rachaelsgoodeats.com/wp-content/uploads/2020/05/chickenalfredo.jpg'
+        'https://hips.hearstapps.com/hmg-prod/images/delish-221130-perfect-chicken-alfredo-0683-eb-1670449995.jpg?crop=1xw:0.8277591973244147xh;center,top'
     );
 
 INSERT INTO
