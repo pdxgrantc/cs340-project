@@ -67,7 +67,7 @@ function RecipeList() {
       }
       // then append '...' to the end
       for (let i = 0; i < data.length; i++) {
-        data[i].description += '...';
+        data[i].description += '.';
       }
     }
     fetchData();
@@ -75,7 +75,7 @@ function RecipeList() {
 
   return (
     <div className='flex flex-col'>
-      <h1 className='text-[3.25rem] font-semibold pl-8'>All Recipes</h1>
+      <h1 className='text-[3.75rem] font-semibold pl-8'>All Recipes</h1>
       <div className='grid grid-cols-2 gap-3'>
         {recipes.map((recipe) => (
           <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
