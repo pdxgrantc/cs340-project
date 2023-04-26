@@ -129,6 +129,16 @@ function DropdownMenu() {
         }
     }
 
+    function AllRecipes() {
+        return (
+            <DropdownItem
+                leftIcon={<Basket />}
+                route="/All-Recipes">
+                All Recipes
+            </DropdownItem>
+        )
+    }
+
     return (
         <div className="dropdown translate-x-[26%] top-[80px] w-[250px]">
             <CSSTransition
@@ -138,6 +148,7 @@ function DropdownMenu() {
                 unmountOnExit>
                 <div className="menu">
                     <TopLink></TopLink>
+                    <AllRecipes></AllRecipes>
                     <div onClick={signOutUser}>
                         <DropdownItem
                             leftIcon={<PersonIcon />}>
