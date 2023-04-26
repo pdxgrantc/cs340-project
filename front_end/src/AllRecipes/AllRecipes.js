@@ -59,6 +59,16 @@ function RecipeList() {
       const response = await fetch('/api/recipes');
       const data = await response.json();
       setRecipes(data);
+      // for the description, only show the first 15 words
+      for (let i = 0; i < data.length; i++) {
+        let description = data[i].description.split(' ');
+        description = description.slice(0, 15).join(' ');
+        data[i].description = description;
+      }
+      // then append '...' to the end
+      for (let i = 0; i < data.length; i++) {
+        data[i].description += '...';
+      }
     }
     fetchData();
   }, []);
@@ -67,7 +77,7 @@ function RecipeList() {
     <div className='flex flex-col'>
       <h1 className='text-[3.25rem] font-semibold pl-8'>All Recipes</h1>
       <div className='grid grid-cols-2 gap-3'>
-        {recipes.map((recipe) => ( 
+        {recipes.map((recipe) => (
           <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
             <div className='flex flex-col gap-3 px-8 py-3 hover:bg-major_button transition duration-[200ms] hover:bg-opacity-95 hover:text-white w-full rounded-[4px]'>
               <h2 className='text-[2.5rem] font-semibold'>{recipe.title}</h2>

@@ -71,12 +71,9 @@ function RecipeContent() {
             // set the instructions to the new array
             setRecipe({ ...data, instructions: instructions });
             // print the instructions array
-            console.log(instructions);
         }
         fetchData();
     }, []);
-
-    console.log(recipe);
 
     if (!recipe) {
         return (
