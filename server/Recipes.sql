@@ -4,7 +4,7 @@ INSERT INTO
 VALUES
     (
         'Spaghetti Bolognese',
-        'Classic spaghetti bolognese with a rich tomato and beef sauce',
+        "Spaghetti Bolognese is a classic Italian dish consisting of spaghetti noodles served with a rich and savory meat sauce made with ground beef, tomatoes, onions, garlic, and a blend of herbs and spices. The sauce is simmered for hours to develop a deep and complex flavor, and it's typically served with a sprinkling of grated Parmesan cheese and a side of garlic bread. This hearty and comforting dish is a staple in Italian cuisine and is beloved by many for its simplicity, deliciousness, and heartiness.",
         'https://bakeitwithlove.com/wp-content/uploads/2022/01/Spaghetti-Bolognese-h.jpg'
     );
 
@@ -46,7 +46,7 @@ INSERT INTO
 VALUES
     (
         'Chicken Alfredo',
-        'Creamy fettuccine alfredo with grilled chicken',
+        "Chicken Alfredo is a classic Italian-American pasta dish that consists of fettuccine pasta, chicken, and a rich and creamy Alfredo sauce. The sauce is made from butter, heavy cream, garlic, and Parmesan cheese. The chicken is cooked separately and then combined with the sauce and pasta, creating a comforting and satisfying meal. It's a popular dish in restaurants and can also be easily made at home. Chicken Alfredo is a great comfort food option for those who love creamy and cheesy pasta dishes.",
         'https://hips.hearstapps.com/hmg-prod/images/delish-221130-perfect-chicken-alfredo-0683-eb-1670449995.jpg?crop=1xw:0.8277591973244147xh;center,top'
     );
 
@@ -84,7 +84,7 @@ INSERT INTO
 VALUES
     (
         'Caesar Salad',
-        'Classic Caesar salad with homemade dressing and croutons',
+        "Caesar salad is a classic dish made with crisp romaine lettuce, croutons, Parmesan cheese, and a creamy dressing. The dressing typically includes ingredients such as garlic, anchovy paste, lemon juice, Dijon mustard, and Worcestershire sauce, which are whisked together with egg yolks and olive oil. The salad is often served as a starter or side dish, but can also be made into a more substantial meal by adding grilled chicken or shrimp. With its tangy, garlicky flavor and satisfying crunch, Caesar salad is a beloved favorite for many salad lovers.",
         'https://www.foodandwine.com/thmb/df0xQFraDimtpDf1kQoUJzTAIl4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Classic-Caesar-Salad-FT-RECIPE0223-a2dc1f3632224a70a7d71c67d1f64876.jpg'
     );
 
@@ -135,7 +135,7 @@ INSERT INTO
 VALUES
     (
         'Margherita Pizza',
-        'Traditional pizza with tomato sauce, mozzarella, and fresh basil',
+        'Margarita pizza is a classic Neapolitan-style pizza that consists of a thin and crispy crust topped with a simple but delicious combination of tomato sauce, mozzarella cheese, and fresh basil. The tomato sauce is typically made with San Marzano tomatoes, which are known for their sweet and tangy flavor. The mozzarella cheese used is usually fresh and moist, and melts perfectly on top of the pizza. The fresh basil adds a fragrant aroma and a subtle hint of sweetness to the pizza.',
         'https://www.foodandwine.com/thmb/3kzG4PWOAgZIIfZwMBLKqoTkaGQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/margherita-pizza-with-argula-and-prosciutto-FT-RECIPE0721-04368ec288a84d2e997573aca0001d98.jpg'
     );
 
@@ -175,7 +175,7 @@ INSERT INTO
 VALUES
     (
         'Chocolate Chip Cookies',
-        'Classic chocolate chip cookies with a soft and chewy texture',
+        "Chocolate chip cookies are a classic American dessert that are loved by many. These cookies are typically made with a dough that is loaded with chocolate chips, resulting in a deliciously sweet and gooey texture. The dough is usually made with ingredients such as flour, sugar, butter, eggs, and vanilla extract. Many recipes also call for brown sugar, which adds a depth of flavor to the cookies. Chocolate chip cookies can be enjoyed warm right out of the oven, or at room temperature with a cold glass of milk.",
         'https://static01.nyt.com/images/2022/02/12/dining/JT-Chocolate-Chip-Cookies/JT-Chocolate-Chip-Cookies-threeByTwoMediumAt2X.jpg'
     );
 
@@ -217,7 +217,7 @@ INSERT INTO
 VALUES
     (
         'Butter Noodles',
-        'Simple pasta dish with butter, garlic, and Parmesan cheese',
+        "Butter noodles are a simple and comforting pasta dish that's perfect for a quick and easy meal. The dish typically consists of boiled egg noodles tossed with butter, salt, and pepper, and sometimes topped with grated Parmesan cheese or fresh parsley. The butter adds richness and a creamy texture to the noodles, while the Parmesan cheese provides a savory umami flavor. This classic dish is a staple for many families and a go-to for those looking for a satisfying and easy-to-make meal.",
         'https://static.onecms.io/wp-content/uploads/sites/43/2022/04/27/244458-ButteredNoodles-0692-2X3.jpg'
     );
 
@@ -252,7 +252,7 @@ INSERT INTO
 VALUES
     (
         'Chicken Noodle Soup',
-        'Classic chicken noodle soup with carrots, celery, and egg noodles',
+        "Chicken noodle soup is a classic comfort food that is perfect for cold or rainy days. This soup typically contains chicken broth, chicken pieces, and noodles, along with a variety of vegetables such as carrots, celery, and onions. It is often seasoned with herbs and spices such as thyme, bay leaves, and black pepper. Chicken noodle soup is known for its soothing and comforting qualities, and is often used as a home remedy for cold and flu symptoms. It is a simple yet satisfying dish that can be enjoyed on its own or paired with crusty bread.",
         'https://images-gmi-pmc.edge-generalmills.com/6722e8f1-83b3-4c86-890e-21c58ce32edb.jpg'
     );
 
@@ -294,7 +294,7 @@ INSERT INTO
 VALUES
     (
         'Butter Chicken Curry',
-        'Indian chicken curry with a creamy tomato sauce',
+        "Butter chicken curry is a classic Indian dish consisting of succulent chicken pieces cooked in a creamy tomato-based sauce. The chicken is marinated in a blend of aromatic spices, including turmeric, garam masala, and cumin, and then sautéed until golden brown. The sauce is made with butter, cream, and tomatoes, creating a rich and flavorful base that complements the chicken. The dish is typically served over steaming basmati rice, with naan bread on the side. With its complex flavors and creamy texture, butter chicken curry is a delicious and satisfying meal.",
         'https://www.danishfoodlovers.com/wp-content/uploads/2022/09/Butter-chicken-3.jpg'
     );
 
@@ -341,7 +341,7 @@ INSERT INTO
 VALUES
     (
         'Chicken Parmesan',
-        'Breaded chicken breasts topped with tomato sauce and mozzarella cheese',
+        "Chicken Parmesan, also known as Chicken Parmigiana, is a classic Italian-American dish that features breaded and fried chicken cutlets topped with tomato sauce, melted mozzarella cheese, and grated Parmesan cheese. The chicken is usually seasoned with herbs and spices, and the tomato sauce is often made with garlic, onions, and basil. Served with a side of spaghetti or other pasta, this hearty and comforting dish is a favorite in many Italian restaurants and home kitchens alike.",
         'https://www.southernliving.com/thmb/rQaGDkAPGa_MeU4eglrAaeuexjg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/southern-living-chicken-parmesan-ddmfs-0047-fe218cb392784e79bfb4bb586685d6f9.jpg'
     );
 
@@ -389,7 +389,7 @@ INSERT INTO
 VALUES
     (
         'Chimichangas',
-        'Fried burritos filled with ground beef, beans, and cheese',
+        "Chimichangas are a popular Mexican dish made by filling flour tortillas with a variety of ingredients such as seasoned beef, chicken, cheese, rice, and beans. The tortillas are then deep-fried until crispy and golden brown, resulting in a deliciously crunchy exterior that contrasts with the tender filling. Chimichangas are often served with a side of guacamole, salsa, and sour cream for dipping, and can be customized to suit individual tastes with additional toppings like lettuce, tomatoes, and jalapenos. They make for a satisfying and flavorful meal that's perfect for a fiesta or any casual gathering.",
         'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2022/05/Chimichangas-20.jpg'
     );
 
@@ -425,7 +425,11 @@ VALUES
     ('Salt', 'to taste', LAST_INSERT_ID()),
     ('Pepper', 'to taste', LAST_INSERT_ID()),
     ('4', 'Flour tortillas', LAST_INSERT_ID()),
-    ('1 cup', 'Shredded cheddar cheese', LAST_INSERT_ID()),
+    (
+        '1 cup',
+        'Shredded cheddar cheese',
+        LAST_INSERT_ID()
+    ),
     ('1/4 cup', 'Vegetable oil', LAST_INSERT_ID()),
     ('Sour cream', 'for serving', LAST_INSERT_ID()),
     ('Salsa', 'for serving', LAST_INSERT_ID());

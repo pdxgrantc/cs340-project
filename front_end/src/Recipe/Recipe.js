@@ -63,6 +63,15 @@ function RecipeContent() {
             const response = await fetch('/api/recipe/' + id);
             const data = await response.json();
             setRecipe(data);
+            // in the instructions create an array of strings, each string is a line
+            // in the instructions
+            let instructions = data.instructions.split('\n');
+            // remove the last element of the array, which is an empty string
+            instructions.pop();
+            // set the instructions to the new array
+            setRecipe({ ...data, instructions: instructions });
+            // print the instructions array
+            console.log(instructions);
         }
         fetchData();
     }, []);
@@ -80,27 +89,34 @@ function RecipeContent() {
                 <Helmet>
                     <title>{recipe.title}</title>
                 </Helmet>
-                <div className='flex gap-10 justify-between px-[20px]'>
-                    <div className='flex flex-col gap-4'>
-                        <h1 className='text-[3.25rem] font-semibold'>{recipe.title}</h1>
-                        <h2 className='text-[1.75rem]'>{recipe.description}</h2>
+                <div className='flex flex-col gap-[3.75rem] px-[20px]'>
+                    <div className='flex flex-col gap-6'>
+                        <h1 className='text-[4.25rem] font-semibold'>{recipe.title}</h1>
+                        <div className='flex gap-10'>
+                            <img className='w-[65%] rounded-[10px]' src={recipe.image_url} alt={recipe.title} />
+                            <h2 className='text-[1.75rem]'>{recipe.description}</h2>
+                        </div>
                     </div>
-                    <img className='w-[60%] rounded-[10px]' src={recipe.image_url} alt={recipe.title} />
-                </div>
-                <div>
-                    <h2>Ingredients</h2>
-                    <ul>
-                        {recipe.items && recipe.items.map((ingredient, index) => (
-                            <li key={index}>{ingredient.name}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <h2>Instructions</h2>
-                    <h3>{recipe.instructions}</h3>
+                    <div className='flex gap-10'>
+                        <div className='min-w-[400px]'>
+                            <h2 className='text-[2rem] font-semibold'>Ingredients</h2>
+                            <ul className='pl-3'>
+                                {recipe.items && recipe.items.map((ingredient, index) => (
+                                    <li className='text-[1.5rem]' key={index}>{index + 1}. {ingredient.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h2 className='text-[2rem] font-semibold'>Instructions</h2>
+                            <ol className='pl-3'>
+                                {recipe.instructions && recipe.instructions.map((instruction, index) => (
+                                    <li className='text-[1.5rem]' key={index}>{instruction}</li>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
-
     }
 }
