@@ -59,8 +59,6 @@ app.get('/api/recipes', async (req, res) => {
     const [rows] = await connection.execute('SELECT * FROM Recipe');
     await connection.end();
 
-    console.log(rows);
-
     res.status(200).json(rows);
   } catch (error) {
     console.error(error);
