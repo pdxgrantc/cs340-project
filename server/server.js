@@ -66,6 +66,49 @@ app.get('/api/recipes', async (req, res) => {
   }
 });
 
+app.get('/api/recipe/:id', async (req, res) => {
+  const recipeId = req.params.id;
+  try {
+    const connection = await getConnection();
+    const [recipeRows] = await connection.execute(
+      'SELECT * FROM Recipe WHERE id = ?',
+      [recipeId]
+    );
+
+    const [itemRows] = await connection.execute(
+      'SELECT * FROM Item WHERE recipe_id = ?',
+      [recipeId]
+    );
+    const items = itemRows.map((item) => ({
+      id: item.id,
+      amount: item.amount,
+      name: item.name,
+    }));
+
+    const [instructionRows] = await connection.execute(
+      'SELECT * FROM Instructions WHERE recipe_id = ?',
+      [recipeId]
+    );
+    const instructions = instructionRows[0].steps;
+
+    await connection.end();
+
+    const recipe = {
+      id: recipeRows[0].id,
+      title: recipeRows[0].title,
+      description: recipeRows[0].description,
+      image_url: recipeRows[0].image_url,
+      items,
+      instructions,
+    };
+
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving recipe from database');
+  }
+});
+
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));

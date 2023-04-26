@@ -1,6 +1,6 @@
 -- insert Spaghetti Bolognese recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Spaghetti Bolognese',
@@ -9,31 +9,40 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Heat oil in a large pan over medium heat. Add onions, garlic, and celery and cook until softened.
 2. Add ground beef and cook until browned, breaking up any large chunks.
 3. Stir in tomato paste, canned tomatoes, and beef broth. Bring to a simmer and let cook for 20 minutes.
 4. Meanwhile, cook spaghetti according to package directions. Drain.
-5. Serve spaghetti with bolognese sauce on top. Enjoy!'
+5. Serve spaghetti with bolognese sauce on top. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `Recipe_id`)
+    Item (amount, name, recipe_id)
 VALUES
-    ('1 pound', 'Ground beef', 1),
-    ('1/2 cup', 'Chopped onions', 1),
-    ('1/4 cup', 'Chopped celery', 1),
-    ('1 clove', 'Garlic, minced', 1),
-    ('2 tbsp', 'Tomato paste', 1),
-    ('1 can (14 oz)', 'Canned tomatoes', 1),
-    ('1/2 cup', 'Beef broth', 1),
-    ('1 package (16 oz)', 'Spaghetti', 1);
+    ('1 pound', 'Ground beef', LAST_INSERT_ID()),
+    ('1/2 cup', 'Chopped onions', LAST_INSERT_ID()),
+    ('1/4 cup', 'Chopped celery', LAST_INSERT_ID()),
+    ('1 clove', 'Garlic, minced', LAST_INSERT_ID()),
+    ('2 tbsp', 'Tomato paste', LAST_INSERT_ID()),
+    (
+        '1 can (14 oz)',
+        'Canned tomatoes',
+        LAST_INSERT_ID()
+    ),
+    ('1/2 cup', 'Beef broth', LAST_INSERT_ID()),
+    (
+        '1 package (16 oz)',
+        'Spaghetti',
+        LAST_INSERT_ID()
+    );
 
 -- insert Chicken Alfredo recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Chicken Alfredo',
@@ -42,7 +51,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Cook fettuccine according to package directions. Drain.
@@ -50,23 +59,28 @@ VALUES
 3. In a separate pan, melt butter and add garlic. Cook for 1-2 minutes.
 4. Add heavy cream and bring to a simmer. Let cook for 5 minutes.
 5. Stir in Parmesan cheese and black pepper.
-6. Add cooked fettuccine and chicken to the sauce. Toss to combine. Enjoy!'
+6. Add cooked fettuccine and chicken to the sauce. Toss to combine. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `Recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 pound', 'Fettuccine', 2),
-    ('1 pound', 'Chicken breast', 2),
-    ('1/2 cup', 'Butter', 2),
-    ('2 cloves', 'Garlic, minced', 2),
-    ('2 cups', 'Heavy cream', 2),
-    ('1 cup', 'Grated Parmesan cheese', 2),
-    ('1/2 teaspoon', 'Black pepper', 2);
+    ('1 pound', 'Fettuccine', LAST_INSERT_ID()),
+    ('1 pound', 'Chicken breast', LAST_INSERT_ID()),
+    ('1/2 cup', 'Butter', LAST_INSERT_ID()),
+    ('2 cloves', 'Garlic, minced', LAST_INSERT_ID()),
+    ('2 cups', 'Heavy cream', LAST_INSERT_ID()),
+    (
+        '1 cup',
+        'Grated Parmesan cheese',
+        LAST_INSERT_ID()
+    ),
+    ('1/2 teaspoon', 'Black pepper', LAST_INSERT_ID());
 
 -- insert Caesar Salad recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Caesar Salad',
@@ -75,7 +89,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Preheat oven to 375°F.
@@ -84,27 +98,40 @@ VALUES
 4. Meanwhile, in a bowl whisk together garlic, mustard, anchovy paste, Worcestershire sauce, lemon juice, and egg yolk.
 5. Slowly drizzle in olive oil while whisking constantly until dressing is emulsified.
 6. Stir in Parmesan cheese and season with salt and pepper.
-7. Toss lettuce with dressing and croutons. Enjoy!'
+7. Toss lettuce with dressing and croutons. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `Recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 loaf', 'French bread', 3),
-    ('1/4 cup', 'Olive oil', 3),
-    ('1 clove', 'Garlic, minced', 3),
-    ('1 teaspoon', 'Dijon mustard', 3),
-    ('1 teaspoon', 'Anchovy paste', 3),
-    ('1 teaspoon', 'Worcestershire sauce', 3),
-    ('1/2 lemon', 'Juice of lemon', 3),
-    ('1', 'Egg yolk', 3),
-    ('1/2 cup', 'Olive oil', 3),
-    ('1/2 cup', 'Grated Parmesan cheese', 3),
-    ('1 head', 'Romaine lettuce, chopped', 3);
+    ('1 loaf', 'French bread', LAST_INSERT_ID()),
+    ('1/4 cup', 'Olive oil', LAST_INSERT_ID()),
+    ('1 clove', 'Garlic, minced', LAST_INSERT_ID()),
+    ('1 teaspoon', 'Dijon mustard', LAST_INSERT_ID()),
+    ('1 teaspoon', 'Anchovy paste', LAST_INSERT_ID()),
+    (
+        '1 teaspoon',
+        'Worcestershire sauce',
+        LAST_INSERT_ID()
+    ),
+    ('1/2 lemon', 'Juice of lemon', LAST_INSERT_ID()),
+    ('1', 'Egg yolk', LAST_INSERT_ID()),
+    ('1/2 cup', 'Olive oil', LAST_INSERT_ID()),
+    (
+        '1/2 cup',
+        'Grated Parmesan cheese',
+        LAST_INSERT_ID()
+    ),
+    (
+        '1 head',
+        'Romaine lettuce, chopped',
+        LAST_INSERT_ID()
+    );
 
 -- insert Margherita Pizza recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Margherita Pizza',
@@ -113,7 +140,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Preheat oven to 475°F.
@@ -122,20 +149,29 @@ VALUES
 4. Sprinkle shredded mozzarella over the sauce.
 5. Top with fresh basil leaves.
 6. Bake for 12-15 minutes until crust is golden brown and cheese is melted.
-7. Slice and serve hot. Enjoy!'
+7. Slice and serve hot. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `Recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 pound', 'Pizza dough', 4),
-    ('1 cup', 'Tomato sauce', 4),
-    ('2 cups', 'Shredded mozzarella cheese', 4),
-    ('1/2 cup', 'Fresh basil leaves', 4);
+    ('1 pound', 'Pizza dough', LAST_INSERT_ID()),
+    ('1 cup', 'Tomato sauce', LAST_INSERT_ID()),
+    (
+        '2 cups',
+        'Shredded mozzarella cheese',
+        LAST_INSERT_ID()
+    ),
+    (
+        '1/2 cup',
+        'Fresh basil leaves',
+        LAST_INSERT_ID()
+    );
 
 -- insert Chocolate Chip Cookie recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Chocolate Chip Cookies',
@@ -144,7 +180,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Preheat oven to 375°F.
@@ -154,25 +190,30 @@ VALUES
 5. Gradually add flour mixture to butter mixture and mix until just combined.
 6. Stir in chocolate chips.
 7. Drop dough by rounded tablespoonfuls onto ungreased baking sheets.
-8. Bake for 8 to 10 minutes, or until lightly golden brown. Enjoy!'
+8. Bake for 8 to 10 minutes, or until lightly golden brown. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 cup', 'Butter, softened', 5),
-    ('1/2 cup', 'White sugar', 5),
-    ('1 cup', 'Brown sugar, packed', 5),
-    ('2', 'Eggs', 5),
-    ('2 tsp', 'Vanilla extract', 5),
-    ('3 cups', 'All-purpose flour', 5),
-    ('1 tsp', 'Baking soda', 5),
-    ('1/2 tsp', 'Salt', 5),
-    ('2 cups', 'Semisweet chocolate chips', 5);
+    ('1 cup', 'Butter, softened', LAST_INSERT_ID()),
+    ('1/2 cup', 'White sugar', LAST_INSERT_ID()),
+    ('1 cup', 'Brown sugar, packed', LAST_INSERT_ID()),
+    ('2', 'Eggs', LAST_INSERT_ID()),
+    ('2 tsp', 'Vanilla extract', LAST_INSERT_ID()),
+    ('3 cups', 'All-purpose flour', LAST_INSERT_ID()),
+    ('1 tsp', 'Baking soda', LAST_INSERT_ID()),
+    ('1/2 tsp', 'Salt', LAST_INSERT_ID()),
+    (
+        '2 cups',
+        'Semisweet chocolate chips',
+        LAST_INSERT_ID()
+    );
 
 -- insert Butter Noodles recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Butter Noodles',
@@ -181,7 +222,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Bring a large pot of salted water to a boil.
@@ -189,20 +230,25 @@ VALUES
 3. Drain pasta and return to pot.
 4. Add butter and garlic to pasta and toss until butter is melted.
 5. Stir in Parmesan cheese and season with salt and pepper.
-6. Serve hot. Enjoy!'
+6. Serve hot. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 pound', 'Pasta', 6),
-    ('1/2 cup', 'Butter', 6),
-    ('2 cloves', 'Garlic, minced', 6),
-    ('1/2 cup', 'Grated Parmesan cheese', 6);
+    ('1 pound', 'Pasta', LAST_INSERT_ID()),
+    ('1/2 cup', 'Butter', LAST_INSERT_ID()),
+    ('2 cloves', 'Garlic, minced', LAST_INSERT_ID()),
+    (
+        '1/2 cup',
+        'Grated Parmesan cheese',
+        LAST_INSERT_ID()
+    );
 
 -- insert Chicken Noodle Soup recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Chicken Noodle Soup',
@@ -211,7 +257,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. In a large pot over medium heat, combine chicken, chicken broth, water, carrots, celery, onion, bay leaf, thyme, salt, and pepper.
@@ -219,27 +265,32 @@ VALUES
 3. Remove chicken from pot and shred with two forks.
 4. Return chicken to pot and add egg noodles.
 5. Cook until noodles are tender, about 10 minutes.
-6. Remove bay leaf and serve hot. Enjoy!'
+6. Remove bay leaf and serve hot. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 pound', 'Chicken breasts', 7),
-    ('8 cups', 'Chicken broth', 7),
-    ('4 cups', 'Water', 7),
-    ('2', 'Carrots, peeled and sliced', 7),
-    ('2 stalks', 'Celery, sliced', 7),
-    ('1', 'Onion, diced', 7),
-    ('1', 'Bay leaf', 7),
-    ('1/2 tsp', 'Dried thyme', 7),
-    ('1 tsp', 'Salt', 7),
-    ('1/2 tsp', 'Pepper', 7),
-    ('2 cups', 'Egg noodles', 7);
+    ('1 pound', 'Chicken breasts', LAST_INSERT_ID()),
+    ('8 cups', 'Chicken broth', LAST_INSERT_ID()),
+    ('4 cups', 'Water', LAST_INSERT_ID()),
+    (
+        '2',
+        'Carrots, peeled and sliced',
+        LAST_INSERT_ID()
+    ),
+    ('2 stalks', 'Celery, sliced', LAST_INSERT_ID()),
+    ('1', 'Onion, diced', LAST_INSERT_ID()),
+    ('1', 'Bay leaf', LAST_INSERT_ID()),
+    ('1/2 tsp', 'Dried thyme', LAST_INSERT_ID()),
+    ('1 tsp', 'Salt', LAST_INSERT_ID()),
+    ('1/2 tsp', 'Pepper', LAST_INSERT_ID()),
+    ('2 cups', 'Egg noodles', LAST_INSERT_ID());
 
 -- insert Butter Chicken Curry recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Butter Chicken Curry',
@@ -248,7 +299,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. In a large skillet over medium heat, heat oil.
@@ -258,30 +309,35 @@ VALUES
 5. Add chicken and season with salt and pepper.
 6. Cook until chicken is no longer pink, about 10 minutes.
 7. Stir in heavy cream and simmer until sauce has thickened, about 5 minutes.
-8. Serve hot with rice and naan. Enjoy!'
+8. Serve hot with rice and naan. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 tbsp', 'Vegetable oil', 8),
-    ('1', 'Onion, diced', 8),
-    ('2 cloves', 'Garlic, minced', 8),
-    ('1 tbsp', 'Fresh ginger, minced', 8),
-    ('1 tbsp', 'Garam masala', 8),
-    ('1 tsp', 'Ground cumin', 8),
-    ('1 tsp', 'Ground turmeric', 8),
-    ('1 tbsp', 'Tomato paste', 8),
+    ('1 tbsp', 'Vegetable oil', LAST_INSERT_ID()),
+    ('1', 'Onion, diced', LAST_INSERT_ID()),
+    ('2 cloves', 'Garlic, minced', LAST_INSERT_ID()),
+    (
+        '1 tbsp',
+        'Fresh ginger, minced',
+        LAST_INSERT_ID()
+    ),
+    ('1 tbsp', 'Garam masala', LAST_INSERT_ID()),
+    ('1 tsp', 'Ground cumin', LAST_INSERT_ID()),
+    ('1 tsp', 'Ground turmeric', LAST_INSERT_ID()),
+    ('1 tbsp', 'Tomato paste', LAST_INSERT_ID()),
     (
         '1 pound',
         'Chicken breasts, cut into 1" pieces',
-        8
+        LAST_INSERT_ID()
     ),
-    ('1 cup', 'Heavy cream', 8);
+    ('1 cup', 'Heavy cream', LAST_INSERT_ID());
 
 -- insert Chicken Parmesan recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Chicken Parmesan',
@@ -290,7 +346,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. Preheat oven to 400 degrees F.
@@ -302,25 +358,34 @@ VALUES
 7. Add chicken and cook until golden, about 6 minutes per side.
 8. Transfer chicken to a baking dish and top with tomato sauce and mozzarella.
 9. Bake until cheese is melted and chicken is cooked through, about 10 minutes.
-10. Serve hot with pasta. Enjoy!'
+10. Serve hot with pasta. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 cup', 'Breadcrumbs', 9),
-    ('1/2 cup', 'Grated Parmesan cheese', 9),
-    ('2', 'Eggs', 9),
-    ('1/4 cup', 'Milk', 9),
-    ('4', 'Chicken breasts', 9),
-    ('1/2 cup', 'Flour', 9),
-    ('1/4 cup', 'Vegetable oil', 9),
-    ('2 cups', 'Tomato sauce', 9),
-    ('1 cup', 'Shredded mozzarella cheese', 9);
+    ('1 cup', 'Breadcrumbs', LAST_INSERT_ID()),
+    (
+        '1/2 cup',
+        'Grated Parmesan cheese',
+        LAST_INSERT_ID()
+    ),
+    ('2', 'Eggs', LAST_INSERT_ID()),
+    ('1/4 cup', 'Milk', LAST_INSERT_ID()),
+    ('4', 'Chicken breasts', LAST_INSERT_ID()),
+    ('1/2 cup', 'Flour', LAST_INSERT_ID()),
+    ('1/4 cup', 'Vegetable oil', LAST_INSERT_ID()),
+    ('2 cups', 'Tomato sauce', LAST_INSERT_ID()),
+    (
+        '1 cup',
+        'Shredded mozzarella cheese',
+        LAST_INSERT_ID()
+    );
 
 -- insert Chimichangas recipe
 INSERT INTO
-    `Recipe` (`title`, `description`, `image_url`)
+    Recipe (title, description, image_url)
 VALUES
     (
         'Chimichangas',
@@ -329,7 +394,7 @@ VALUES
     );
 
 INSERT INTO
-    `Instructions` (`steps`)
+    Instructions (steps, recipe_id)
 VALUES
     (
         '1. In a large skillet over medium heat, heat oil.
@@ -344,22 +409,23 @@ VALUES
 10. In a large skillet over medium heat, heat oil.
 11. Add chimichangas and cook until golden, about 1 minute per side.
 12. Transfer to a paper towel-lined plate to drain.
-13. Serve hot with sour cream and salsa. Enjoy!'
+13. Serve hot with sour cream and salsa. Enjoy!',
+        LAST_INSERT_ID()
     );
 
 INSERT INTO
-    `Item` (`amount`, `name`, `recipe_id`)
+    Item (amount, name, Recipe_id)
 VALUES
-    ('1 tbsp', 'Vegetable oil', 10),
-    ('1', 'Onion, diced', 10),
-    ('1 pound', 'Ground beef', 10),
-    ('1 packet', 'Taco seasoning', 10),
-    ('1/4 cup', 'Water', 10),
-    ('1 can', 'Refried beans', 10),
-    ('Salt', 'to taste', 10),
-    ('Pepper', 'to taste', 10),
-    ('4', 'Flour tortillas', 10),
-    ('1 cup', 'Shredded cheddar cheese', 10),
-    ('1/4 cup', 'Vegetable oil', 10),
-    ('Sour cream', 'for serving', 10),
-    ('Salsa', 'for serving', 10);
+    ('1 tbsp', 'Vegetable oil', LAST_INSERT_ID()),
+    ('1', 'Onion, diced', LAST_INSERT_ID()),
+    ('1 pound', 'Ground beef', LAST_INSERT_ID()),
+    ('1 packet', 'Taco seasoning', LAST_INSERT_ID()),
+    ('1/4 cup', 'Water', LAST_INSERT_ID()),
+    ('1 can', 'Refried beans', LAST_INSERT_ID()),
+    ('Salt', 'to taste', LAST_INSERT_ID()),
+    ('Pepper', 'to taste', LAST_INSERT_ID()),
+    ('4', 'Flour tortillas', LAST_INSERT_ID()),
+    ('1 cup', 'Shredded cheddar cheese', LAST_INSERT_ID()),
+    ('1/4 cup', 'Vegetable oil', LAST_INSERT_ID()),
+    ('Sour cream', 'for serving', LAST_INSERT_ID()),
+    ('Salsa', 'for serving', LAST_INSERT_ID());

@@ -4,27 +4,29 @@ CREATE TABLE `Shopping_List` (
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `Instructions` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `steps` TEXT NOT NULL,
-    PRIMARY KEY (`id`)
+CREATE TABLE Recipe (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    image_url TEXT,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE `Recipe` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `title` TEXT NOT NULL,
-    `description` TEXT NOT NULL,
-    `image_url` TEXT,
-    PRIMARY KEY (`id`)
+CREATE TABLE Instructions (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    steps TEXT NOT NULL,
+    recipe_id INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (recipe_id) REFERENCES Recipe(id) ON DELETE CASCADE
 );
 
-CREATE TABLE `Item` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `amount` TEXT NOT NULL,
-    `name` TEXT NOT NULL,
-    `Recipe_id` INT(11) NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`Recipe_id`) REFERENCES `Recipe`(`id`) ON DELETE CASCADE
+CREATE TABLE Item (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    amount TEXT NOT NULL,
+    name TEXT NOT NULL,
+    recipe_id INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (recipe_id) REFERENCES Recipe(id) ON DELETE CASCADE
 );
 
 CREATE TABLE `Users` (
