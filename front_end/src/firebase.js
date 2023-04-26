@@ -23,7 +23,6 @@ export const signInWithGoogle = async () => {
             photoURL: result.user.photoURL,
             email: result.user.email,
         });
-        console.log(response);
     }
     catch (error) {
         console.error(error);
