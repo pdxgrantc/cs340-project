@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 export default function AllRecipes() {
   const [user] = useAuthState(auth);
-  
+
   if (!user) {
     return (
       <>
@@ -69,7 +69,7 @@ function RecipeList() {
       <div className='grid grid-cols-2 gap-2'>
         {recipes.map((recipe) => ( 
           <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
-            <div className='flex flex-col gap-3 px-8 py-3 hover:bg-button_pressed_color w-full rounded-[4px]'>
+            <div className='flex flex-col gap-3 px-8 py-3 hover:bg-text_grey hover:bg-opacity-95 hover:text-white w-full rounded-[4px]'>
               <h2 className='text-[2.5rem] font-semibold'>{recipe.title}</h2>
               <img className='max-h-[450px] rounded-[4px]' src={recipe.image_url} alt={recipe.title} />
               <p className='text-[1.5rem]'>{recipe.description}</p>
