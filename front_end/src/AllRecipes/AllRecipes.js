@@ -66,7 +66,7 @@ function RecipeList() {
   return (
     <div className='flex flex-col'>
       <h1 className='text-[3.25rem] font-semibold pl-8'>All Recipes</h1>
-      <div className='grid grid-cols-2 gap-2'>
+      <div className='grid grid-cols-2 gap-3'>
         {recipes.map((recipe) => ( 
           <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
             <div className='flex flex-col gap-3 px-8 py-3 hover:bg-text_grey transition duration-[200ms] hover:bg-opacity-95 hover:text-white w-full rounded-[4px]'>
