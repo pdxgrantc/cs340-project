@@ -89,11 +89,11 @@ function RecipeContent() {
                 <Helmet>
                     <title>{recipe.title}</title>
                 </Helmet>
-                <div className='flex flex-col gap-[3.75rem] px-[20px]'>
+                <div className='flex flex-col gap-[3rem] px-[20px]'>
                     <div className='flex flex-col gap-6'>
                         <h1 className='text-[4.25rem] font-semibold'>{recipe.title}</h1>
                         <div className='flex gap-10'>
-                            <img className='w-[65%] rounded-[10px]' src={recipe.image_url} alt={recipe.title} />
+                            <img className='w-[65%] h-fit rounded-[10px]' src={recipe.image_url} alt={recipe.title} />
                             <h2 className='text-[1.75rem]'>{recipe.description}</h2>
                         </div>
                     </div>
