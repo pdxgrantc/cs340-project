@@ -140,7 +140,7 @@ VALUES
     (
         'Chocolate Chip Cookies',
         'Classic chocolate chip cookies with a soft and chewy texture',
-        'https://www.modernhoney.com/wp-content/uploads/2019/06/Best-Chocolate-Chip-Cookie-Recipe-1.jpg'
+        'https://static01.nyt.com/images/2022/02/12/dining/JT-Chocolate-Chip-Cookies/JT-Chocolate-Chip-Cookies-threeByTwoMediumAt2X.jpg'
     );
 
 INSERT INTO
@@ -177,7 +177,7 @@ VALUES
     (
         'Butter Noodles',
         'Simple pasta dish with butter, garlic, and Parmesan cheese',
-        'https://www.foodandwine.com/thmb/3kzG4PWOAgZIIfZwMBLKqoTkaGQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/margherita-pizza-with-argula-and-prosciutto-FT-RECIPE0721-04368ec288a84d2e997573aca0001d98.jpg'
+        'https://static.onecms.io/wp-content/uploads/sites/43/2022/04/27/244458-ButteredNoodles-0692-2X3.jpg'
     );
 
 INSERT INTO
@@ -207,7 +207,7 @@ VALUES
     (
         'Chicken Noodle Soup',
         'Classic chicken noodle soup with carrots, celery, and egg noodles',
-        'https://www.foodandwine.com/thmb/3kzG4PWOAgZIIfZwMBLKqoTkaGQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/margherita-pizza-with-argula-and-prosciutto-FT-RECIPE0721-04368ec288a84d2e997573aca0001d98.jpg'
+        'https://images-gmi-pmc.edge-generalmills.com/6722e8f1-83b3-4c86-890e-21c58ce32edb.jpg'
     );
 
 INSERT INTO
@@ -244,7 +244,7 @@ VALUES
     (
         'Butter Chicken Curry',
         'Indian chicken curry with a creamy tomato sauce',
-        'https://www.foodandwine.com/thmb/3kzG4PWOAgZIIfZwMBLKqoTkaGQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/margherita-pizza-with-argula-and-prosciutto-FT-RECIPE0721-04368ec288a84d2e997573aca0001d98.jpg'
+        'https://www.danishfoodlovers.com/wp-content/uploads/2022/09/Butter-chicken-3.jpg'
     );
 
 INSERT INTO
@@ -286,7 +286,7 @@ VALUES
     (
         'Chicken Parmesan',
         'Breaded chicken breasts topped with tomato sauce and mozzarella cheese',
-        'https://www.foodandwine.com/thmb/3kzG4PWOAgZIIfZwMBLKqoTkaGQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/margherita-pizza-with-argula-and-prosciutto-FT-RECIPE0721-04368ec288a84d2e997573aca0001d98.jpg'
+        'https://www.southernliving.com/thmb/rQaGDkAPGa_MeU4eglrAaeuexjg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/southern-living-chicken-parmesan-ddmfs-0047-fe218cb392784e79bfb4bb586685d6f9.jpg'
     );
 
 INSERT INTO
@@ -325,7 +325,7 @@ VALUES
     (
         'Chimichangas',
         'Fried burritos filled with ground beef, beans, and cheese',
-        'https://www.foodandwine.com/thmb/3kzG4PWOAgZIIfZwMBLKqoTkaGQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/margherita-pizza-with-argula-and-prosciutto-FT-RECIPE0721-04368ec288a84d2e997573aca0001d98.jpg'
+        'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2022/05/Chimichangas-20.jpg'
     );
 
 INSERT INTO
