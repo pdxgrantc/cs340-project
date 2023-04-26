@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Pages
-import Home from "./Home/Home";
 import MyRecipes from "./MyRecipes/MyRecipes";
 import AllRecipes from "./AllRecipes/AllRecipes";
 import Recipe from "./Recipe/Recipe";
@@ -13,9 +12,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AllRecipes />} />
         <Route path="/my-recipes" element={<MyRecipes />} />
-        <Route path="/all-recipes" element={<AllRecipes />} />
         <Route path="/recipe/:id" element={<Recipe />} />
         <Route path="*" element={<FourOFour />} />
         <Route path='/404' element={<FourOFour />} />

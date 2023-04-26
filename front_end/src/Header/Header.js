@@ -108,40 +108,24 @@ function DropdownMenu() {
         }
     }
 
-    function HomeLink() {
-        if (window.location.pathname !== "/") {
-            return (
-                <DropdownItem
-                    leftIcon={<Basket />}
-                    route="/">
-                    Home
-                </DropdownItem>
-            )
-        }
+    function AllRecipes() {
+        return (
+            <DropdownItem
+                leftIcon={<Basket />}
+                route="/">
+                All Recipes
+            </DropdownItem>
+        )
     }
 
     function MyRecipes() {
-        if (window.location.pathname !== "/My-Recipes") {
-            return (
-                <DropdownItem
-                    leftIcon={<Basket />}
-                    route="/My-Recipes">
-                    My Recipes
-                </DropdownItem>
-            )
-        }
-    }
-
-    function AllRecipes() {
-        if (window.location.pathname !== "/All-Recipes") {
-            return (
-                <DropdownItem
-                    leftIcon={<Basket />}
-                    route="/All-Recipes">
-                    All Recipes
-                </DropdownItem>
-            )
-        }
+        return (
+            <DropdownItem
+                leftIcon={<Basket />}
+                route="/My-Recipes">
+                My Recipes
+            </DropdownItem>
+        )
     }
 
     return (
@@ -152,9 +136,8 @@ function DropdownMenu() {
                 classNames="menu-primary"
                 unmountOnExit>
                 <div className="menu">
-                    <HomeLink></HomeLink>
-                    <MyRecipes></MyRecipes>
                     <AllRecipes></AllRecipes>
+                    <MyRecipes></MyRecipes>
                     <div onClick={signOutUser}>
                         <DropdownItem
                             leftIcon={<PersonIcon />}>
