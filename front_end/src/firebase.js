@@ -1,5 +1,7 @@
+import React, { useState } from 'react'
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import axios from 'axios';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAgfQqLSBDNnV6MkGTkgjQvKstAAls4RFg",
@@ -10,13 +12,23 @@ const firebaseConfig = {
     appId: "1:242432014375:web:910eb78a492290ba88f602"
 };
 
-export const signInWithGoogle = () => {
+
+export const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
 
-    // TODO add .then too write to user table
-    signInWithPopup(auth, provider).catch((error) => {
+    try {
+        const result = await signInWithPopup(auth, provider);
+
+        const { displayName, photoURL } = result.user;
+
+        await axios.post('/api/user', {
+            displayName,
+            photoURL
+        });
+
+    } catch (error) {
         console.log(error);
-    });
+    }
 }
 
 export const signOutUser = () => {
