@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 // Firebase
@@ -38,7 +38,7 @@ export default function AllRecipes() {
           <div className="w-full h-max basis-auto grow">
             <div className='m-auto rounded-[10px] h-[80%] bg-black w-[90%]'>
               <div className='flex gap-20 w-[100%] px-[4%] py-[3%]'>
-
+                <RecipeList />
               </div>
             </div>
           </div>
@@ -47,4 +47,32 @@ export default function AllRecipes() {
       </>
     )
   }
+}
+
+function RecipeList() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('/api/recipes');
+      const data = await response.json();
+      setRecipes(data);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <h1>Recipes</h1>
+      <ul>
+        {recipes.map((recipe) => (
+          <li key={recipe.id}>
+            <h2>{recipe.title}</h2>
+            <img src={recipe.image_url} alt={recipe.title} />
+            <p>{recipe.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

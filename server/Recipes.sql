@@ -5,7 +5,7 @@ VALUES
     (
         'Spaghetti Bolognese',
         'Classic spaghetti bolognese with a rich tomato and beef sauce',
-        'https://www.example.com/images/spaghetti_bolognese.jpg'
+        'https://bakeitwithlove.com/wp-content/uploads/2022/01/Spaghetti-Bolognese-h.jpg'
     );
 
 INSERT INTO
@@ -38,7 +38,7 @@ VALUES
     (
         'Chicken Alfredo',
         'Creamy fettuccine alfredo with grilled chicken',
-        'https://www.example.com/images/chicken_alfredo.jpg'
+        'https://rachaelsgoodeats.com/wp-content/uploads/2020/05/chickenalfredo.jpg'
     );
 
 INSERT INTO
@@ -71,7 +71,7 @@ VALUES
     (
         'Caesar Salad',
         'Classic Caesar salad with homemade dressing and croutons',
-        'https://www.example.com/images/caesar_salad.jpg'
+        'https://www.foodandwine.com/thmb/df0xQFraDimtpDf1kQoUJzTAIl4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Classic-Caesar-Salad-FT-RECIPE0223-a2dc1f3632224a70a7d71c67d1f64876.jpg'
     );
 
 INSERT INTO

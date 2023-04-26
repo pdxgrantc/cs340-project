@@ -53,6 +53,20 @@ app.post('/api/signin', async (req, res) => {
   }
 });
 
+app.get('/api/recipes', async (req, res) => {
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute('SELECT * FROM Recipe');
+    await connection.end();
+
+    console.log(rows);
+
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving recipes from database');
+  }
+});
 
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {
