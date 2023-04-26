@@ -46,7 +46,7 @@ export default function Header() {
                     </Link>
                     <div
                         onClick={signInWithGoogle}
-                        className="flex font-semibold text-[1.75rem] hover:bg-text_grey h-fit my-auto py-[0.1rem] px-[.5rem] rounded-[4px] hover:bg-opacity-50 cursor-pointer">
+                        className="flex font-semibold text-[1.75rem] hover:bg-text_grey transition duration-[200ms] h-fit my-auto py-[0.1rem] px-[.5rem] rounded-[4px] hover:bg-opacity-50 cursor-pointer">
                         <h1 className="whitespace-nowrap m-auto">Sign In</h1>
                         <PersonIcon className="w-[45px] h-[45px] m-auto"></PersonIcon>
                     </div>
@@ -62,7 +62,7 @@ function TopNav(props) {
     return (
         <div>
             <Link to="#" className="text-[2.25rem] w-fit" onClick={() => setOpen(!open)}>
-                <div className="flex hover:bg-text_grey hover:bg-opacity-50 transition duration-[300ms] rounded-[4px] px-[1rem] h-min gap-[1vw]">
+                <div className="flex hover:bg-text_grey hover:bg-opacity-50 transition duration-[200ms] rounded-[4px] px-[1rem] h-min gap-[1vw]">
                     <p className="whitespace-nowrap my-auto font-semibold">{props.name}</p>
                     <div className='my-[6px] w-[55px] align-middle'>
                         {props.icon}
