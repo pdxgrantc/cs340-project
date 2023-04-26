@@ -65,7 +65,7 @@ function RecipeList() {
         let firstSentence = description.split('.')[0];
         data[i].description = firstSentence;
       }
-      // then append '...' to the end
+      // then append the original '.' to the end
       for (let i = 0; i < data.length; i++) {
         data[i].description += '.';
       }
