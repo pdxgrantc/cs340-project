@@ -59,11 +59,11 @@ function RecipeList() {
       const response = await fetch('/api/recipes');
       const data = await response.json();
       setRecipes(data);
-      // for the description, only show the first 15 words
+      // for the description, only show the first sentence
       for (let i = 0; i < data.length; i++) {
-        let description = data[i].description.split(' ');
-        description = description.slice(0, 15).join(' ');
-        data[i].description = description;
+        let description = data[i].description;
+        let firstSentence = description.split('.')[0];
+        data[i].description = firstSentence;
       }
       // then append '...' to the end
       for (let i = 0; i < data.length; i++) {
