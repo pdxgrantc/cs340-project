@@ -30,7 +30,8 @@ CREATE TABLE `Item` (
 CREATE TABLE `Users` (
     `id` varchar(28) NOT NULL,
     `display_name` TEXT NOT NULL,
-    `photoURL` varchar(512),
+    `email` varchar(48) NOT NULL,
+    `photoURL` varchar(512) NOT NULL,
     PRIMARY KEY (`id`)
 );
 

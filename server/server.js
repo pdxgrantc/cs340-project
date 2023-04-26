@@ -1,56 +1,63 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
-const path = require('path')
-const bodyParser = require('body-parser');
+const path = require('path');
 const admin = require('firebase-admin');
 
 const app = express();
 
-app.use(bodyParser.json());
-
-const serviceAccount = require('./firebase-credentials.json')
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+app.use(express.json());
 
 // Serve static files from the React app in build folder
 app.use(express.static(path.join(__dirname, '../front_end/build')));
 
-// Handles route rquests for pages in react
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));
+// Initialize Firebase Admin SDK
+const serviceAccount = require('./firebase-credentials.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
 });
 
-// Handles post request for user logins
-app.post('/api/user', async (req, res) => {
-  const { displayName, photoURL } = req.body;
+// Acquire a database connection from the pool
+const getConnection = async () => {
+  return await mysql.createConnection({
+    host: 'classmysql.engr.oregonstate.edu',
+    user: 'cs340_conkling',
+    password: 'Grant3206',
+    database: 'cs340_conkling',
+  });
+};
 
+// POST request to insert a new user into the database
+app.post('/api/signin', async (req, res) => {
+  const { uid, displayName, photoURL, email } = req.body;
+
+  // check if user exists in database by querying with uid
   try {
-    // create a connection to the database
-    const connection = await mysql.createConnection({
-      host: 'classmysql.engr.oregonstate.edu',
-      user: 'cs340_conkling',
-      password: 'Grant3206',
-      database: 'cs340_conkling',
-    });
-
-    // execute the query to insert the displayName into the Users table
-    await connection.execute('INSERT INTO Users (display_name) (photoURL) VALUES (?)', [displayName, photoURL]);
-
-    // close the database connection
+    const connection = await getConnection();
+    const [rows] = await connection.execute('SELECT * FROM Users WHERE id = ?', [uid]);
     await connection.end();
 
-    // Log user's display name to console
-    console.log(`User logged in: ${displayName}`);
+    // if user does not exist, insert into database
+    if (rows.length === 0) {
+      const connection = await getConnection();
+      await connection.execute('INSERT INTO Users (id, display_name, photoURL, email) VALUES (?, ?, ?, ?)', [uid, displayName, photoURL, email]);
+      await connection.end();
 
-    // Send response to client
-    res.sendStatus(200);
+      res.status(200).send('User added to database');
+    }
+    else {
+      res.status(200).send('User already exists in database');
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send('Error inserting user into database');
   }
 });
 
+
+// Handle all other route requests with the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {

@@ -12,22 +12,23 @@ const firebaseConfig = {
     appId: "1:242432014375:web:910eb78a492290ba88f602"
 };
 
-
 export const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
 
     try {
-        const result = await signInWithPopup(auth, provider);
-        const { displayName, photoURL } = result.user;
-        await axios.post('/api/user', {
-            displayName,
-            photoURL
+        const response = await axios.post(`/api/signin`, {
+            uid: result.user.uid,
+            displayName: result.user.displayName,
+            photoURL: result.user.photoURL,
+            email: result.user.email,
         });
-
-    } catch (error) {
-        console.log(error);
+        console.log(response);
     }
-}
+    catch (error) {
+        console.error(error);
+    }
+};
 
 export const signOutUser = () => {
     signOut(auth);
