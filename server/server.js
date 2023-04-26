@@ -22,15 +22,35 @@ app.get('*', (req, res) => {
 });
 
 // Handles post request for user logins
-app.post('/api/user', (req, res) => {
+app.post('/api/user', async (req, res) => {
   const { displayName, photoURL } = req.body;
 
-  // Log user's display name and photo URL to console
-  console.log(`User logged in: ${displayName}, photo URL: ${photoURL}`);
+  try {
+    // create a connection to the database
+    const connection = await mysql.createConnection({
+      host: 'classmysql.engr.oregonstate.edu',
+      user: 'cs340_conkling',
+      password: 'Grant3206',
+      database: 'cs340_conkling',
+    });
 
-  // Send response to client
-  res.sendStatus(200);
+    // execute the query to insert the displayName into the Users table
+    await connection.execute('INSERT INTO Users (display_name) (photoURL) VALUES (?)', [displayName, photoURL]);
+
+    // close the database connection
+    await connection.end();
+
+    // Log user's display name to console
+    console.log(`User logged in: ${displayName}`);
+
+    // Send response to client
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error inserting user into database');
+  }
 });
+
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
