@@ -28,7 +28,7 @@ CREATE TABLE `Item` (
 );
 
 CREATE TABLE `Users` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `id` varchar(28) NOT NULL,
     `display_name` TEXT NOT NULL,
     `photoURL` varchar(512),
     PRIMARY KEY (`id`)
@@ -36,7 +36,7 @@ CREATE TABLE `Users` (
 
 CREATE TABLE `Recipe_has_users` (
     `Recipe_id` INT(11) NOT NULL,
-    `Users_id` INT(11) NOT NULL,
+    `Users_id` varchar(28) NOT NULL,
     PRIMARY KEY (`Recipe_id`, `Users_id`),
     FOREIGN KEY (`Recipe_id`) REFERENCES `Recipe`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`Users_id`) REFERENCES `Users`(`id`) ON DELETE CASCADE
