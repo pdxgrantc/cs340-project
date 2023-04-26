@@ -31,7 +31,7 @@ export default function AllRecipes() {
     return (
       <>
         <Helmet>
-          <title>Recipes - Home</title>
+          <title>All Recipes</title>
         </Helmet>
         <div className="bg-main_bg_color text-text_white h-[100vh] flex flex-col">
           <Header />
