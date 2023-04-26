@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 
 // Firebase
 import { auth } from '../firebase'
@@ -10,7 +11,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SignedOut from '../SignedOut';
-import { Link } from 'react-router-dom';
 
 export default function AllRecipes() {
     const [user] = useAuthState(auth);
@@ -54,6 +54,7 @@ export default function AllRecipes() {
 
 function RecipeContent() {
     const [recipe, setRecipe] = useState([]);
+    const [isLiked, setIsLiked] = useState(false);
 
     // get the recipe id from the url
     const { id } = useParams();
@@ -88,7 +89,22 @@ function RecipeContent() {
                 </Helmet>
                 <div className='flex flex-col gap-[3rem] px-[20px]'>
                     <div className='flex flex-col gap-6'>
-                        <h1 className='text-[4.25rem] font-semibold'>{recipe.title}</h1>
+                        <div className='flex gap-10 min-w-[800px] justify-between'>
+                            <h1 className='text-[4.25rem] font-semibold'>{recipe.title}</h1>
+                            <div>
+                                {isLiked ?
+                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={() => setIsLiked(!isLiked)}>
+                                        <h3 className='text-[2.5rem] align-middle'>Saved</h3>
+                                        <AiFillHeart className='text-[4rem] text-red-500' color="red" />
+                                    </button>
+                                    :
+                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={() => setIsLiked(!isLiked)}>
+                                        <h3 className='text-[2.5rem] align-middle cursor-pointer'>Save</h3>
+                                        <AiOutlineHeart className='text-[4rem] text-red-500' />
+                                    </button>
+                                }
+                            </div>
+                        </div>
                         <div className='flex gap-10'>
                             <img className='w-[65%] h-fit rounded-[10px]' src={recipe.image_url} alt={recipe.title} />
                             <h2 className='text-[1.75rem]'>{recipe.description}</h2>
