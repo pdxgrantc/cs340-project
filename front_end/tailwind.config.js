@@ -13,6 +13,7 @@ module.exports = {
       text_white: '#d6d6d6',
       outline_dark: "#808080",
       text_grey: '#b1b1b1',      
+      major_button: '#666666',      
       button_pressed_color: '#475266',
       button_accent_color: '#5121e5',
       input_text_color: '#b6b6b6',
