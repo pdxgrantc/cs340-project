@@ -77,6 +77,17 @@ function RecipeContent() {
         fetchData();
     }, []);
 
+    // check if the recipe is in the user's saved recipes
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/user/' + user.uid + '/check/' + id);
+            const data = await response.json();
+            setIsLiked(data.value);
+        }
+        fetchData();
+    }, []);
+
+
     const handleAddToSaved = async () => {
         if (isLiked) {
             setIsLiked(!isLiked);

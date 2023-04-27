@@ -4,7 +4,6 @@ const path = require('path');
 const admin = require('firebase-admin');
 
 const app = express();
-
 app.use(express.json());
 
 // Serve static files from the React app in build folder
@@ -172,6 +171,30 @@ app.delete('/api/user/:uid/unsave/:id', async (req, res) => {
   }
 });
 
+app.get('/api/user/:uid/check/:id', async (req, res) => {
+  const uid = req.params.uid;
+  const recipe_id = req.params.id;
+
+  // check if user has saved recipe in database table Recipe_has_users
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      'SELECT * FROM Recipe_has_users WHERE Users_id = ? AND Recipe_id = ?',
+      [uid, recipe_id]
+    );
+    await connection.end();
+
+    if (rows.length !== 0) {
+      res.status(200).json({ message: 'Recipe saved to user', value: true });
+    }
+    else {
+      res.status(200).json({ message: 'Recipe not saved to user', value: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error checking if recipe is saved to user');
+  }
+});
 
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {
