@@ -109,6 +109,38 @@ app.get('/api/recipe/:id', async (req, res) => {
   }
 });
 
+//'/api/user/' + user.uid + '/save'
+app.post('/api/user/:uid/save/:id', async (req, res) => {
+  const uid = req.params.uid;
+  const recipe_id = req.params.id;
+
+  try {
+    const connection = await getConnection();
+    // check if user has already saved recipe in database table User_Has_Recipe
+    const [rows] = await connection.execute(
+      'SELECT * FROM Recipe_has_users WHERE Users_id = ? AND Recipe_id = ?',
+      [uid, recipe_id]
+    );
+
+    // if user has not saved recipe, insert into database
+    if (rows.length === 0) {
+      await connection.execute(
+        'INSERT INTO Recipe_has_users (Users_id, Recipe_id) VALUES (?, ?)',
+        [uid, recipe_id]
+      );
+      await connection.end();
+
+      res.status(200).send('Recipe saved to user');
+    }
+    else {
+      res.status(200).send('Recipe already saved to user');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error saving recipe to user');
+  }
+});
+
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));

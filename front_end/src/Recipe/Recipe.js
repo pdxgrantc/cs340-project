@@ -53,6 +53,7 @@ export default function AllRecipes() {
 }
 
 function RecipeContent() {
+    const [user] = useAuthState(auth);
     const [recipe, setRecipe] = useState([]);
     const [isLiked, setIsLiked] = useState(false);
 
@@ -76,6 +77,24 @@ function RecipeContent() {
         fetchData();
     }, []);
 
+    const handleAddToSaved = async () => {
+        console.log(id)
+        if (isLiked) {
+            setIsLiked(!isLiked);
+        }
+        else {
+            setIsLiked(!isLiked);
+            // add the recipe to the user's saved recipes
+            const response = await fetch('/api/user/' + user.uid + '/save/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            const res = await response.json();
+        }
+    };
+
     if (!recipe) {
         return (
             <h1 className='text-[3rem]'>Loading...</h1>
@@ -93,12 +112,12 @@ function RecipeContent() {
                             <h1 className='text-[4.25rem] font-semibold'>{recipe.title}</h1>
                             <div>
                                 {isLiked ?
-                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={() => setIsLiked(!isLiked)}>
+                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToSaved}>
                                         <h3 className='text-[2.5rem] align-middle'>Saved</h3>
                                         <AiFillHeart className='text-[4rem] text-red-500' color="red" />
                                     </button>
                                     :
-                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={() => setIsLiked(!isLiked)}>
+                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToSaved}>
                                         <h3 className='text-[2.5rem] align-middle cursor-pointer'>Save</h3>
                                         <AiOutlineHeart className='text-[4rem] text-red-500' />
                                     </button>
