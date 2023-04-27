@@ -148,7 +148,7 @@ function RecipeContent() {
                         </div>
                     </div>
                     <div className='flex gap-10'>
-                        <div className='min-w-[400px]'>
+                        <div className='min-w-[500px]'>
                             <h2 className='text-[2rem] font-semibold'>Ingredients</h2>
                             <div className='flex pl-1 gap-3'>
                                 <ul >
