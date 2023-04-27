@@ -75,7 +75,7 @@ function RecipeContent() {
             // print the instructions array
         }
         fetchData();
-    }, []);
+    }, [id]);
 
     // check if the recipe is in the user's saved recipes
     useEffect(() => {
@@ -85,8 +85,7 @@ function RecipeContent() {
             setIsLiked(data.value);
         }
         fetchData();
-    }, []);
-
+    }, [id, user.uid]);
 
     const handleAddToSaved = async () => {
         if (isLiked) {
@@ -98,7 +97,7 @@ function RecipeContent() {
                     'Content-Type': 'application/json'
                 },
             });
-            const res = await response.json();
+            await response.json();
         }
         else {
             setIsLiked(!isLiked);
@@ -109,7 +108,7 @@ function RecipeContent() {
                     'Content-Type': 'application/json'
                 },
             });
-            const res = await response.json();
+            await response.json();
         }
     };
 

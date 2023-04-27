@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import axios from 'axios';
@@ -17,7 +16,7 @@ export const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
 
     try {
-        const response = await axios.post(`/api/signin`, {
+        await axios.post(`/api/signin`, {
             uid: result.user.uid,
             displayName: result.user.displayName,
             photoURL: result.user.photoURL,
