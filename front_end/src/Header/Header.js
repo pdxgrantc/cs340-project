@@ -21,7 +21,7 @@ export default function Header() {
                         <Link to="/">
                             <div className='flex gap-7 h-[100%] w-[28rem] bg-black pl-[2vw]'>
                                 <Basket className='h-[4.5rem] my-auto'></Basket>
-                                <h1 className="align-middle text-[3.25rem] font-bold cursor-pointer" to="/">Home</h1>
+                                <h1 className="align-middle text-[3.25rem] font-bold cursor-pointer" to="/">Recipes+</h1>
                             </div>
                         </Link>
                         <div className="my-auto flex justify-around">

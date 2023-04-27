@@ -68,9 +68,8 @@ function RecipeList() {
   return (
     <>
       <div className='flex flex-col'>
-        <div className='flex flex-col'>
-          <h1 className='text-[3.75rem] font-semibold pl-8'>My Recipes</h1>
-          <div className='grid grid-cols-2 gap-3'></div>
+        <h1 className='text-[3.75rem] font-semibold pl-8'>My Recipes</h1>
+        <div className='grid grid-cols-2 gap-3'>
           {recipes.length === 0 ?
             <div className='pl-8'>
               <h2 className='text-[2.75rem]'>You have no saved recipes.</h2>
@@ -85,7 +84,7 @@ function RecipeList() {
               <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                 <div className='flex flex-col gap-3 px-8 py-3 hover:bg-major_button transition duration-[200ms] hover:bg-opacity-95 hover:text-white w-full rounded-[4px]'>
                   <h2 className='text-[2.5rem] font-semibold'>{recipe.title}</h2>
-                  <img className='max-h-[450px] rounded-[4px]' src={recipe.image_url} alt={recipe.title} />
+                  <img className='h-[450px] w-fit rounded-[4px]' src={recipe.image_url} alt={recipe.title} />
                   <p className='text-[1.5rem]'>{recipe.description}</p>
                 </div>
               </Link>
