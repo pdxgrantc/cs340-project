@@ -78,7 +78,6 @@ function RecipeContent() {
     }, []);
 
     const handleAddToSaved = async () => {
-        console.log(id)
         if (isLiked) {
             setIsLiked(!isLiked);
             // remove the recipe from the user's saved recipes

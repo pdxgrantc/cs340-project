@@ -130,7 +130,7 @@ app.post('/api/user/:uid/save/:id', async (req, res) => {
       );
       await connection.end();
 
-      res.status(200).send('Recipe saved to user');
+      res.status(200).json({ message: 'Recipe saved to user' });
     }
     else {
       res.status(200).send('Recipe already saved to user');
@@ -161,10 +161,10 @@ app.delete('/api/user/:uid/unsave/:id', async (req, res) => {
       );
       await connection.end();
 
-      res.status(200).send('Recipe removed from user');
+      res.status(200).json({ message: 'Recipe removed from user' });
     }
     else {
-      res.status(200).send('Recipe not saved to user');
+      res.status(200).json({ message: 'Recipe removed from user' });
     }
   } catch (error) {
     console.error(error);
