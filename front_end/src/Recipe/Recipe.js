@@ -150,7 +150,7 @@ function RecipeContent() {
                     <div className='flex gap-10'>
                         <div className='min-w-[400px]'>
                             <h2 className='text-[2rem] font-semibold'>Ingredients</h2>
-                            <div className='flex pl-1'>
+                            <div className='flex pl-1 gap-3'>
                                 <ul >
                                     {recipe.items && recipe.items.map((item, index) => (
                                         <li key={index}>

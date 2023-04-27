@@ -61,7 +61,6 @@ function RecipeList() {
       const response = await fetch('/api/user/' + user.uid + '/recipes/');
       const data = await response.json();
       setRecipes(data);
-      console.log(data);
     }
     fetchData();
   }, [user.uid]);
@@ -72,15 +71,26 @@ function RecipeList() {
         <div className='flex flex-col'>
           <h1 className='text-[3.75rem] font-semibold pl-8'>My Recipes</h1>
           <div className='grid grid-cols-2 gap-3'></div>
-          {recipes.map((recipe) => (
-            <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
-              <div className='flex flex-col gap-3 px-8 py-3 hover:bg-major_button transition duration-[200ms] hover:bg-opacity-95 hover:text-white w-full rounded-[4px]'>
-                <h2 className='text-[2.5rem] font-semibold'>{recipe.title}</h2>
-                <img className='max-h-[450px] rounded-[4px]' src={recipe.image_url} alt={recipe.title} />
-                <p className='text-[1.5rem]'>{recipe.description}</p>
-              </div>
-            </Link>
-          ))}
+          {recipes.length === 0 ?
+            <div className='pl-8'>
+              <h2 className='text-[2.75rem]'>You have no saved recipes.</h2>
+              <Link
+                to='/'
+                className="whitespace-nowrap text-[1.6rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
+                All recipes
+              </Link>
+            </div>
+            :
+            recipes.map((recipe) => (
+              <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
+                <div className='flex flex-col gap-3 px-8 py-3 hover:bg-major_button transition duration-[200ms] hover:bg-opacity-95 hover:text-white w-full rounded-[4px]'>
+                  <h2 className='text-[2.5rem] font-semibold'>{recipe.title}</h2>
+                  <img className='max-h-[450px] rounded-[4px]' src={recipe.image_url} alt={recipe.title} />
+                  <p className='text-[1.5rem]'>{recipe.description}</p>
+                </div>
+              </Link>
+            ))
+          }
         </div>
       </div>
     </>
