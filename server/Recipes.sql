@@ -422,8 +422,8 @@ VALUES
     ('1 packet', 'Taco seasoning', LAST_INSERT_ID()),
     ('1/4 cup', 'Water', LAST_INSERT_ID()),
     ('1 can', 'Refried beans', LAST_INSERT_ID()),
-    ('Salt', 'to taste', LAST_INSERT_ID()),
-    ('Pepper', 'to taste', LAST_INSERT_ID()),
+    ('To taste', 'Salt', LAST_INSERT_ID()),
+    ('To taste', 'Pepper', LAST_INSERT_ID()),
     ('4', 'Flour tortillas', LAST_INSERT_ID()),
     (
         '1 cup',
@@ -431,5 +431,5 @@ VALUES
         LAST_INSERT_ID()
     ),
     ('1/4 cup', 'Vegetable oil', LAST_INSERT_ID()),
-    ('Sour cream', 'for serving', LAST_INSERT_ID()),
-    ('Salsa', 'for serving', LAST_INSERT_ID());
+    ('For serving', 'Sour cream', LAST_INSERT_ID()),
+    ('For serving', 'Salsa', LAST_INSERT_ID());

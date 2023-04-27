@@ -150,11 +150,26 @@ function RecipeContent() {
                     <div className='flex gap-10'>
                         <div className='min-w-[400px]'>
                             <h2 className='text-[2rem] font-semibold'>Ingredients</h2>
-                            <ul className='pl-3'>
-                                {recipe.items && recipe.items.map((ingredient, index) => (
-                                    <li className='text-[1.5rem]' key={index}>{index + 1}. {ingredient.name}</li>
-                                ))}
-                            </ul>
+                            <div className='flex pl-1'>
+                                <ul >
+                                    {recipe.items && recipe.items.map((item, index) => (
+                                        <li key={index}>
+                                            <p className='text-[1.5rem]'>
+                                                {item.amount}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <ul>
+                                    {recipe.items && recipe.items.map((item, index) => (
+                                        <li key={index}>
+                                            <p className='text-[1.5rem]'>
+                                                {item.name}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                         <div>
                             <h2 className='text-[2rem] font-semibold'>Instructions</h2>

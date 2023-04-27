@@ -108,6 +108,43 @@ app.get('/api/recipe/:id', async (req, res) => {
   }
 });
 
+app.get('/api/user/:uid/recipes', async (req, res) => {
+  const uid = req.params.uid;
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      'SELECT * FROM Recipe_has_users WHERE Users_id = ?',
+      [uid]
+    );
+    await connection.end();
+
+    const recipeIds = rows.map((row) => row.Recipe_id);
+    // get recipe data for each recipe id
+    const recipes = [];
+    for (const id of recipeIds) {
+      const connection = await getConnection();
+      const [recipeRows] = await connection.execute(
+        'SELECT * FROM Recipe WHERE id = ?',
+        [id]
+      );
+      await connection.end();
+
+      const recipe = {
+        id: recipeRows[0].id,
+        title: recipeRows[0].title,
+        description: recipeRows[0].description,
+        image_url: recipeRows[0].image_url,
+      };
+      recipes.push(recipe);
+    }
+
+    res.status(200).json(recipes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving user recipes from database');
+  }
+});
+
 // Post request to save recipe to user in database
 app.post('/api/user/:uid/save/:id', async (req, res) => {
   const uid = req.params.uid;
