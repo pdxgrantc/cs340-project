@@ -109,7 +109,7 @@ app.get('/api/recipe/:id', async (req, res) => {
   }
 });
 
-//'/api/user/' + user.uid + '/save'
+// Post request to save recipe to user in database
 app.post('/api/user/:uid/save/:id', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
@@ -140,6 +140,38 @@ app.post('/api/user/:uid/save/:id', async (req, res) => {
     res.status(500).send('Error saving recipe to user');
   }
 });
+
+app.delete('/api/user/:uid/unsave/:id', async (req, res) => {
+  const uid = req.params.uid;
+  const recipe_id = req.params.id;
+
+  try {
+    const connection = await getConnection();
+    // check if user has saved recipe in database table Recipe_has_users
+    const [rows] = await connection.execute(
+      'SELECT * FROM Recipe_has_users WHERE Users_id = ? AND Recipe_id = ?',
+      [uid, recipe_id]
+    );
+
+    // if user has saved recipe, delete from database
+    if (rows.length !== 0) {
+      await connection.execute(
+        'DELETE FROM Recipe_has_users WHERE Users_id = ? AND Recipe_id = ?',
+        [uid, recipe_id]
+      );
+      await connection.end();
+
+      res.status(200).send('Recipe removed from user');
+    }
+    else {
+      res.status(200).send('Recipe not saved to user');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error removing recipe from user');
+  }
+});
+
 
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {

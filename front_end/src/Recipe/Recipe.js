@@ -81,6 +81,14 @@ function RecipeContent() {
         console.log(id)
         if (isLiked) {
             setIsLiked(!isLiked);
+            // remove the recipe from the user's saved recipes
+            const response = await fetch('/api/user/' + user.uid + '/unsave/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            const res = await response.json();
         }
         else {
             setIsLiked(!isLiked);
