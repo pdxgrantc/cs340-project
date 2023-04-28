@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { BsCardChecklist } from 'react-icons/bs'
 
 // Firebase
 import { auth } from '../firebase'
@@ -112,6 +113,17 @@ function RecipeContent() {
         }
     };
 
+    const handleAddToShoppingList = async () => {
+        // add the recipe's ingredients to the user's shopping list
+        const response = await fetch('/api/user/' + user.uid + '/shopping/add/' + id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        await response.json();
+    };
+
     if (!recipe) {
         return (
             <h1 className='text-[3rem]'>Loading...</h1>
@@ -127,18 +139,30 @@ function RecipeContent() {
                     <div className='flex flex-col gap-6'>
                         <div className='flex gap-10 min-w-[800px] justify-between'>
                             <h1 className='text-[4.25rem] font-semibold'>{recipe.title}</h1>
-                            <div>
+                            <div className='flex gap-3'>
                                 {isLiked ?
-                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToSaved}>
-                                        <h3 className='text-[2.5rem] align-middle'>Saved</h3>
-                                        <AiFillHeart className='text-[4rem] text-red-500' color="red" />
-                                    </button>
+                                    <div>
+                                        <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToShoppingList}>
+                                            <h3 className='text-[2.5rem] align-middle'>Add to Shopping List</h3>
+                                            <BsCardChecklist className='text-[4rem]' />
+                                        </button>
+                                    </div>
                                     :
-                                    <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToSaved}>
-                                        <h3 className='text-[2.5rem] align-middle cursor-pointer'>Save</h3>
-                                        <AiOutlineHeart className='text-[4rem] text-red-500' />
-                                    </button>
+                                    <></>
                                 }
+                                <div>
+                                    {isLiked ?
+                                        <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToSaved}>
+                                            <h3 className='text-[2.5rem] align-middle'>Saved</h3>
+                                            <AiFillHeart className='text-[4rem] text-red-500' color="red" />
+                                        </button>
+                                        :
+                                        <button className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]' onClick={handleAddToSaved}>
+                                            <h3 className='text-[2.5rem] align-middle cursor-pointer'>Save</h3>
+                                            <AiOutlineHeart className='text-[4rem] text-red-500' />
+                                        </button>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div className='flex gap-10'>

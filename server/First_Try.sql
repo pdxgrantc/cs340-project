@@ -1,9 +1,3 @@
-CREATE TABLE `Shopping_List` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `title` TEXT NOT NULL,
-    PRIMARY KEY (`id`)
-);
-
 CREATE TABLE Recipe (
     id INT(11) NOT NULL AUTO_INCREMENT,
     title TEXT NOT NULL,
@@ -35,6 +29,15 @@ CREATE TABLE `Users` (
     `email` varchar(48) NOT NULL,
     `photoURL` varchar(512) NOT NULL,
     PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Shopping_List` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `Item_id` INT(11) NOT NULL,
+    `Users_id` varchar(28) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`Item_id`) REFERENCES `Item`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`Users_id`) REFERENCES `Users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `Recipe_has_users` (
