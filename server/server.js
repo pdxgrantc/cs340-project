@@ -52,6 +52,41 @@ app.post('/api/signin', async (req, res) => {
   }
 });
 
+app.get('/api/user/getInfo/:uid', async (req, res) => {
+  const uid = req.params.uid;
+
+  // send the user's display name
+
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute('SELECT display_name FROM Users WHERE id = ?', [uid]);
+    await connection.end();
+
+    res.status(200).json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving user info from database');
+  }
+
+});
+
+app.post('/api/user/updateInfo/:uid', async (req, res) => {
+  const uid = req.params.uid;
+  const { displayName } = req.body;
+
+  try {
+    const connection = await getConnection();
+
+    await connection.execute('UPDATE Users SET display_name = ? WHERE id = ?', [displayName, uid]);
+    await connection.end();
+
+    res.status(200).send('User info updated');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error updating user info in database');
+  }
+});
+
 app.get('/api/recipes', async (req, res) => {
   try {
     const connection = await getConnection();

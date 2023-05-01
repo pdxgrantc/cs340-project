@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
@@ -13,6 +13,20 @@ import { ReactComponent as PersonIcon } from './person-icon.svg'
 export default function Header() {
     const [user] = useAuthState(auth)
 
+    // get user's display name
+    const [displayName, setDisplayName] = useState('')
+
+    const uid = user ? user.uid : ''
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/user/getInfo/' + uid)
+            const data = await response.json()
+            setDisplayName(data.display_name)
+        }
+        fetchData()
+    }, [user, uid])
+
     if (user) {
         return (
             <>
@@ -25,7 +39,7 @@ export default function Header() {
                             </div>
                         </Link>
                         <div className="my-auto flex justify-around">
-                            <TopNav icon={<UserPhoto />} name={user.displayName}>
+                            <TopNav icon={<UserPhoto />} name={displayName}>
                                 <DropdownMenu></DropdownMenu>
                             </TopNav>
                         </div>
@@ -138,6 +152,26 @@ function DropdownMenu() {
         )
     }
 
+    function UserSettings() {
+        return (
+            <DropdownItem
+                leftIcon={<PersonIcon />}
+                route="/User-Settings">
+                User Settings
+            </DropdownItem>
+        )
+    }
+
+    function CreateRecipe() {
+        return (
+            <DropdownItem
+                leftIcon={<Basket />}
+                route="/Create-Recipe">
+                Create Recipe
+            </DropdownItem>
+        )
+    }
+
     return (
         <div className="dropdown translate-x-[26%] top-[80px] w-[250px]">
             <CSSTransition
@@ -149,6 +183,7 @@ function DropdownMenu() {
                     <AllRecipes></AllRecipes>
                     <MyRecipes></MyRecipes>
                     <ShoppingList></ShoppingList>
+                    <UserSettings></UserSettings>
                     <div onClick={signOutUser}>
                         <DropdownItem
                             leftIcon={<PersonIcon />}>
