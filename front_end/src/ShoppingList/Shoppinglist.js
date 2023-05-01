@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
+import { FaTrashAlt } from 'react-icons/fa';
 
 // Firebase
 import { auth } from '../firebase'
@@ -71,6 +72,13 @@ function ListContent() {
         setShoppingList([]);
     }
 
+    const deleteItem = (id) => () => {
+        fetch('/api/user/' + user.uid + '/shopping/remove/' + id, {
+            method: 'DELETE',
+        })
+        setShoppingList(shoppingList.filter(item => item.shopping_list_id !== id)); // Remove item from list
+    };
+
     return (
         <div className='flex flex-col w-[80%]'>
             <div className='flex gap-5 w-full justify-between'>
@@ -99,6 +107,9 @@ function ListContent() {
                                     className="align-middle h-fit whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
                                     Link to Recipe
                                 </Link>
+                                <button className='flex gap-5' onClick={deleteItem(item.shopping_list_id)}>
+                                    <FaTrashAlt className='text-[2rem] hover:text-red-500' />
+                                </button>
                             </div>
                         ))}
                     </>

@@ -255,6 +255,7 @@ app.get('/api/user/:uid/list', async (req, res) => {
       await connection.end();
 
       const item = {
+        shopping_list_id: row.id,
         id: itemRows[0].id,
         name: itemRows[0].name,
         amount: itemRows[0].amount,
@@ -282,7 +283,7 @@ app.delete('/api/user/:uid/list/clear', async (req, res) => {
       [uid]
     );
     await connection.end();
-      
+
     res.status(200).json({ message: 'User list cleared' });
   }
   catch (error) {
@@ -338,6 +339,27 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Error adding items to user list');
+  }
+});
+
+app.delete('/api/user/:uid/shopping/remove/:shopping_list_id', async (req, res) => {
+  const uid = req.params.uid;
+  const shopping_list_id = req.params.shopping_list_id;
+
+  // delete item from user's list
+  try {
+    const connection = await getConnection();
+    await connection.execute(
+      'DELETE FROM Shopping_List WHERE id = ?',
+      [shopping_list_id]
+    );
+    await connection.end();
+
+    res.status(200).json({ message: 'Item removed from user list' });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Error removing item from user list');
   }
 });
 
