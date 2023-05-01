@@ -276,10 +276,7 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
-  console.log("uid: " + uid + " recipe_id: " + recipe_id);
-
   // get all the item ids for the recipe id from the recipe
-
   const items = [];
   try {
     const connection = await getConnection();
@@ -297,10 +294,7 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
     res.status(500).send('Error retrieving recipe items from database');
   }
 
-  console.log("items: " + items);
-
   // write each item to the user's list with the recipe id and the user id
-
   try {
     for (const item of items) {
       const connection = await getConnection();
