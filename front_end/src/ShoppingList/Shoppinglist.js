@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 // Firebase
@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SignedOut from '../SignedOut';
+import { Link } from 'react-router-dom';
 
 export default function Shoppinglist() {
     const [user] = useAuthState(auth);
@@ -51,9 +52,42 @@ export default function Shoppinglist() {
 }
 
 function ListContent() {
+    const [user] = useAuthState(auth);
+    const [shoppingList, setShoppingList] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/user/' + user.uid + '/list');
+            const data = await response.json();
+            setShoppingList(data);
+        }
+        fetchData();
+    }, [user]);
+
     return (
-        <>
-            <h1 className='text-[4.25rem] font-semibold'>Shopping List</h1>
-        </>
+        <div className='flex flex-col'>
+            <h1 className='text-[3.75rem] font-semibold'>{user.displayName + "'s Shopping List"}</h1>
+            <div className='flex flex-col'>
+                {shoppingList.length !== 0 ?
+                    <>
+                        {shoppingList.map((item) => (
+                            <div className='flex gap-10'>
+                                <div className='text-[2rem] flex gap-5'>
+                                    <p>{item.name}</p>
+                                    <p>{item.amount}</p>
+                                </div>
+                                <Link
+                                    to={'/recipe/' + item.recipe_id}
+                                    className="whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
+                                    Link to Recipe
+                                </Link>
+                            </div>
+                        ))}
+                    </>
+                    :
+                    <p>Shopping list is empty</p>
+                }
+            </div>
+        </div>
     )
 }

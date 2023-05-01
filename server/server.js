@@ -236,40 +236,40 @@ app.get('/api/user/:uid/check/:id', async (req, res) => {
 app.get('/api/user/:uid/list', async (req, res) => {
   const uid = req.params.uid;
 
-  // get all items from user's list
+  // get the data for each item in the user's list
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute(
-      'SELECT * FROM Item_has_users WHERE Users_id = ?',
+      'SELECT * FROM Shopping_List WHERE Users_id = ?',
       [uid]
     );
     await connection.end();
 
-    const itemIds = rows.map((row) => row.Item_id);
-    // get item data for each item id
     const items = [];
-    for (const id of itemIds) {
+    for (const row of rows) {
       const connection = await getConnection();
       const [itemRows] = await connection.execute(
         'SELECT * FROM Item WHERE id = ?',
-        [id]
+        [row.Item_id]
       );
       await connection.end();
 
       const item = {
         id: itemRows[0].id,
         name: itemRows[0].name,
-        quantity: itemRows[0].quantity,
-        unit: itemRows[0].unit,
+        amount: itemRows[0].amount,
+        recipe_id: row.Recipe_id,
       };
       items.push(item);
     }
 
     res.status(200).json(items);
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving user list from database');
   }
+  
 });
 
 app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
