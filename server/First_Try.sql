@@ -35,9 +35,11 @@ CREATE TABLE `Shopping_List` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `Item_id` INT(11) NOT NULL,
     `Users_id` varchar(28) NOT NULL,
+    `Recipe_id` INT(11) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`Item_id`) REFERENCES `Item`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`Users_id`) REFERENCES `Users`(`id`) ON DELETE CASCADE
+    FOREIGN KEY (`Users_id`) REFERENCES `Users`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`Recipe_id`) REFERENCES `Recipe`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `Recipe_has_users` (

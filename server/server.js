@@ -276,7 +276,10 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
-  // get all the item ids from the recipe
+  console.log("uid: " + uid + " recipe_id: " + recipe_id);
+
+  // get all the item ids for the recipe id from the recipe
+
   const items = [];
   try {
     const connection = await getConnection();
@@ -294,24 +297,75 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
     res.status(500).send('Error retrieving recipe items from database');
   }
 
-  // add each item to the user's list
+  console.log("items: " + items);
+
+  // write each item to the user's list with the recipe id and the user id
+
   try {
     for (const item of items) {
       const connection = await getConnection();
-      // check if user has already added item to list
+      // check if user has already added item to list with the recipe id
       const [rows] = await connection.execute(
-
-        'SELECT * FROM Item_has_users WHERE Users_id = ? AND Item_id = ?',
-        [uid, item]
+        'SELECT * FROM Shopping_List WHERE Users_id = ? AND Item_id = ? AND Recipe_id = ?',
+        [uid, item, recipe_id]
       );
+      await connection.end();
+
+      // if user has not added item to list, insert into database
+
+      if (rows.length === 0) {
+        const connection = await getConnection();
+        await connection.execute(
+          'INSERT INTO Shopping_List (Users_id, Item_id, Recipe_id) VALUES (?, ?, ?)',
+          [uid, item, recipe_id]
+        );
+        await connection.end();
       }
+    }
+    res.status(200).json({ message: 'Items added to user list' });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error adding item to user list');
+    res.status(500).send('Error adding items to user list');
   }
 });
 
-    
+
+/*
+// get all the item ids from the recipe
+const items = [];
+try {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    'SELECT * FROM Item WHERE recipe_id = ?',
+    [recipe_id]
+  );
+  await connection.end();
+
+  for (const row of rows) {
+    items.push(row.id);
+  }
+} catch (error) {
+  console.error(error);
+  res.status(500).send('Error retrieving recipe items from database');
+}
+
+// add each item to the user's list
+try {
+  for (const item of items) {
+    const connection = await getConnection();
+    // check if user has already added item to list
+    const [rows] = await connection.execute(
+
+      'SELECT * FROM Item_has_users WHERE Users_id = ? AND Item_id = ?',
+      [uid, item]
+    );
+    }
+} catch (error) {
+  console.error(error);
+  res.status(500).send('Error adding item to user list');
+}
+*/
+
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));
