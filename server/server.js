@@ -269,7 +269,26 @@ app.get('/api/user/:uid/list', async (req, res) => {
     console.error(error);
     res.status(500).send('Error retrieving user list from database');
   }
-  
+});
+
+app.delete('/api/user/:uid/list/clear', async (req, res) => {
+  const uid = req.params.uid;
+
+  // delete all items from the user's list
+  try {
+    const connection = await getConnection();
+    await connection.execute(
+      'DELETE FROM Shopping_List WHERE Users_id = ?',
+      [uid]
+    );
+    await connection.end();
+      
+    res.status(200).json({ message: 'User list cleared' });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Error clearing user list');
+  }
 });
 
 app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
@@ -306,7 +325,6 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
       await connection.end();
 
       // if user has not added item to list, insert into database
-
       if (rows.length === 0) {
         const connection = await getConnection();
         await connection.execute(
@@ -322,43 +340,6 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
     res.status(500).send('Error adding items to user list');
   }
 });
-
-
-/*
-// get all the item ids from the recipe
-const items = [];
-try {
-  const connection = await getConnection();
-  const [rows] = await connection.execute(
-    'SELECT * FROM Item WHERE recipe_id = ?',
-    [recipe_id]
-  );
-  await connection.end();
-
-  for (const row of rows) {
-    items.push(row.id);
-  }
-} catch (error) {
-  console.error(error);
-  res.status(500).send('Error retrieving recipe items from database');
-}
-
-// add each item to the user's list
-try {
-  for (const item of items) {
-    const connection = await getConnection();
-    // check if user has already added item to list
-    const [rows] = await connection.execute(
-
-      'SELECT * FROM Item_has_users WHERE Users_id = ? AND Item_id = ?',
-      [uid, item]
-    );
-    }
-} catch (error) {
-  console.error(error);
-  res.status(500).send('Error adding item to user list');
-}
-*/
 
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {

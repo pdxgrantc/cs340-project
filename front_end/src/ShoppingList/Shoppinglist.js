@@ -64,9 +64,22 @@ function ListContent() {
         fetchData();
     }, [user]);
 
+    const clearList = () => {
+        fetch('/api/user/' + user.uid + '/list/clear', {
+            method: 'DELETE',
+        })
+        setShoppingList([]);
+    }
+
     return (
         <div className='flex flex-col'>
-            <h1 className='text-[3.75rem] font-semibold'>{user.displayName + "'s Shopping List"}</h1>
+            <div className='flex gap-5'>
+                <h1 className='text-[3.75rem] font-semibold'>{user.displayName + "'s Shopping List"}</h1>
+                <button onClick={clearList}
+                    className="h-fit whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
+                    Clear List
+                </button>
+            </div>
             <div className='flex flex-col'>
                 {shoppingList.length !== 0 ?
                     <>
@@ -78,7 +91,7 @@ function ListContent() {
                                 </div>
                                 <Link
                                     to={'/recipe/' + item.recipe_id}
-                                    className="whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
+                                    className="h-fit whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
                                     Link to Recipe
                                 </Link>
                             </div>
