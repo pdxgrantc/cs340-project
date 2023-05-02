@@ -402,7 +402,6 @@ app.delete('/api/user/:uid/shopping/remove/:shopping_list_id', async (req, res) 
 app.post('/api/recipe/create', async (req, res) => {
   // get the recipe data from the request body
   const recipe = req.body;
-  console.log(recipe);
 
   // write the name, description, and image to the database
   try {
@@ -425,8 +424,6 @@ app.post('/api/recipe/create', async (req, res) => {
       );
       await connection.end();
     }
-
-    console.log(recipe_id)
 
     // append a new line to the instructions
     recipe.recipeInstructions += '\n';
