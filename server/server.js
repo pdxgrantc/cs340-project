@@ -398,6 +398,55 @@ app.delete('/api/user/:uid/shopping/remove/:shopping_list_id', async (req, res) 
   }
 });
 
+// route to create a new recipe
+app.post('/api/recipe/create', async (req, res) => {
+  // get the recipe data from the request body
+  const recipe = req.body;
+  console.log(recipe);
+
+  // write the name, description, and image to the database
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      'INSERT INTO Recipe (title, description, image_url) VALUES (?, ?, ?)',
+      [recipe.recipeName, recipe.recipeDescription, recipe.recipeImage]
+    );
+    await connection.end();
+
+    // get the recipe id from the database
+    const recipe_id = rows.insertId;
+
+    // write the ingredients to the database
+    for (const ingredient of recipe.items) {
+      const connection = await getConnection();
+      await connection.execute(
+        'INSERT INTO Item (name, amount, recipe_id) VALUES (?, ?, ?)',
+        [ingredient.name, ingredient.amount, recipe_id]
+      );
+      await connection.end();
+    }
+
+    console.log(recipe_id)
+
+    // append a new line to the instructions
+    recipe.recipeInstructions += '\n';
+
+    // write the instructions to the database
+    const newConnection = await getConnection();
+    await newConnection.execute(
+      'INSERT INTO Instructions (steps, recipe_id) VALUES (?, ?)',
+      [recipe.recipeInstructions, recipe_id]
+    );
+    await newConnection.end();
+
+    res.status(200).json({ message: 'Recipe created' });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Error creating recipe');
+  }
+});
+
 // Handle all other route requests with the React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'front_end', 'build', 'index.html'));

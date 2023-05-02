@@ -69,12 +69,29 @@ function Content() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // print all the data in the console
-        console.log(recipeName)
-        console.log(recipeImage)
-        console.log(recipeDescription)
-        console.log(recipeInstructions)
-        console.log(items)
+
+        
+        // package the data into a JSON object
+        const data = {
+            recipeName: recipeName,
+            recipeImage: recipeImage,
+            recipeDescription: recipeDescription,
+            recipeInstructions: recipeInstructions,
+            items: items
+        }
+
+        // send the data to the backend
+        // /api/recipe/create
+        fetch('/api/recipe/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        }).then(response => response.json()).then(data => {
+            ClearForm()
+        })
     };
 
     const ClearForm = () => {
