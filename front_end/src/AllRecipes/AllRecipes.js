@@ -76,6 +76,12 @@ function RecipeList() {
   return (
     <div className='flex flex-col'>
       <h1 className='text-[3.75rem] font-semibold pl-8'>All Recipes</h1>
+      <div>
+        <form className='flex flex-row gap-5 pl-8'>
+          <input className='px-3 rounded-[4px] outline-none text-[2.5rem] text-black w-[50%]' type='text' placeholder='Search for a recipe' />
+          <button className="whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">Search</button>
+        </form>
+      </div>
       <div className='grid grid-cols-2 gap-3'>
         {recipes.map((recipe) => (
           <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
