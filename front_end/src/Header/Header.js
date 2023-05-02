@@ -184,6 +184,7 @@ function DropdownMenu() {
                     <MyRecipes></MyRecipes>
                     <ShoppingList></ShoppingList>
                     <UserSettings></UserSettings>
+                    <CreateRecipe></CreateRecipe>
                     <div onClick={signOutUser}>
                         <DropdownItem
                             leftIcon={<PersonIcon />}>
