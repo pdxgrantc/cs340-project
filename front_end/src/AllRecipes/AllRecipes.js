@@ -53,6 +53,7 @@ export default function AllRecipes() {
 
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -73,14 +74,51 @@ function RecipeList() {
     fetchData();
   }, []);
 
+  const ExecuteSearch = () => {
+    console.log('searching for: ' + search);
+
+    async function fetchData() {
+      const response = await fetch('/api/recipes/search/' + search);
+      const data = await response.json();
+
+      setRecipes(data);
+      
+      // for the description, only show the first sentence
+      for (let i = 0; i < data.length; i++) {
+        let description = data[i].description;
+        let firstSentence = description.split('.')[0];
+        data[i].description = firstSentence;
+      }
+      // then append the original '.' to the end
+      for (let i = 0; i < data.length; i++) {
+        data[i].description += '.';
+      }
+      
+      // set search back to empty string
+      setSearch('');
+    }
+    fetchData();
+  }
+
+
   return (
     <div className='flex flex-col gap-5'>
       <div>
         <h1 className='text-[3.75rem] font-semibold pl-8'>All Recipes</h1>
-        <form className='flex flex-row gap-5 pl-8'>
-          <input className='px-3 rounded-[4px] outline-none text-[2.5rem] text-black w-[50%]' type='text' placeholder='Search for a recipe' />
-          <button className="whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">Search</button>
-        </form>
+        <div className='flex flex-row gap-5 pl-8'>
+          <input
+            className='px-3 rounded-[4px] outline-none text-[2.5rem] text-black w-[50%]'
+            type='text'
+            placeholder='Search for a recipe'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button
+            className="whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]"
+            onClick={ExecuteSearch}>
+            Search
+          </button>
+        </div>
       </div>
       <div className='grid grid-cols-2 gap-3'>
         {recipes.map((recipe) => (

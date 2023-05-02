@@ -100,6 +100,41 @@ app.get('/api/recipes', async (req, res) => {
   }
 });
 
+app.get('/api/recipes/search/:search', async (req, res) => {
+  const search = req.params.search;
+
+  console.log('searching for: ' + search);
+
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute('SELECT * FROM Recipe WHERE title LIKE ?', ['%' + search + '%']);
+    await connection.end();
+
+    // check the description for the search term as well
+    const descriptionConnection = await getConnection();
+    const [descriptionRows] = await descriptionConnection.execute('SELECT * FROM Recipe WHERE description LIKE ?', ['%' + search + '%']);
+    await descriptionConnection.end();
+
+    // append the description rows to the title rows if they are not already in the title rows
+    for (const descriptionRow of descriptionRows) {
+      let found = false;
+      for (const row of rows) {
+        if (descriptionRow.id === row.id) {
+          found = true;
+        }
+      }
+      if (!found) {
+        rows.push(descriptionRow);
+      }
+    }
+
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving recipes from database');
+  }
+});
+
 app.get('/api/recipe/:id', async (req, res) => {
   const recipeId = req.params.id;
   try {
