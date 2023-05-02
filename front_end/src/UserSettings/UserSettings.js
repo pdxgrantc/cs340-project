@@ -1,4 +1,4 @@
-import React, { usestate, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 // Firebase
@@ -88,7 +88,7 @@ function Content() {
                     <input
                         className='text-[1.75rem] outline-none px-3 rounded-[4px] text-black'
                         type="text"
-                        placeholder="New Display Name"
+                        placeholder="New Name"
                         value={displayName}
                         onChange={(e) => setDisplayName(e.target.value)}>
                     </input>

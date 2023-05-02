@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { FaTrashAlt } from 'react-icons/fa';
+import { IoCreateSharp } from 'react-icons/io';
 
 // Firebase
 import { auth } from '../firebase'
@@ -33,7 +33,7 @@ export default function CreateRecipe() {
         return (
             <>
                 <Helmet>
-                    <title>Shopping List</title>
+                    <title>Create Recipe</title>
                 </Helmet>
                 <div className="bg-main_bg_color text-text_white min-h-[100vh] flex flex-col">
                     <Header />
@@ -70,6 +70,11 @@ function Content() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        // ensure that all fields are filled out
+        if (recipeName === '' || recipeImage === '' || recipeDescription === '' || recipeInstructions === '' || items.length === 0) {
+            alert('Please fill out all fields')
+            return
+        }
         
         // package the data into a JSON object
         const data = {

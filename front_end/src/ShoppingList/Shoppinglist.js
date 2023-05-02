@@ -124,7 +124,7 @@ function ListContent() {
                         ))}
                     </>
                     :
-                    <p className='text-[2rem]'>Shopping list is empty</p>
+                    <p className='text-[2rem]'>Your shopping list is empty</p>
                 }
             </div>
         </div>

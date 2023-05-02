@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
+import { IoCreate } from 'react-icons/io5';
+import { RiUserSettingsFill } from 'react-icons/ri';
+import { MdChecklist } from 'react-icons/md';
 
 // Firebase
 import { auth, signInWithGoogle, signOutUser } from '../firebase'
@@ -145,7 +148,7 @@ function DropdownMenu() {
     function ShoppingList() {
         return (
             <DropdownItem
-                leftIcon={<Basket />}
+                leftIcon={<MdChecklist className='w-[1.8rem] h-auto' />}
                 route="/Shopping-List">
                 Shopping List
             </DropdownItem>
@@ -155,7 +158,7 @@ function DropdownMenu() {
     function UserSettings() {
         return (
             <DropdownItem
-                leftIcon={<PersonIcon />}
+                leftIcon={<RiUserSettingsFill className='w-[1.8rem] h-auto' />}
                 route="/User-Settings">
                 User Settings
             </DropdownItem>
@@ -165,7 +168,7 @@ function DropdownMenu() {
     function CreateRecipe() {
         return (
             <DropdownItem
-                leftIcon={<Basket />}
+                leftIcon={<IoCreate className='w-[1.8rem] h-auto' />}
                 route="/Create-Recipe">
                 Create Recipe
             </DropdownItem>
