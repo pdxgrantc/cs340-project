@@ -112,7 +112,7 @@ function RecipeList() {
             onChange={(e) => setSearch(e.target.value)}
           />
           <button
-            className="whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]"
+            className="font-semibold whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]"
             onClick={ExecuteSearch}>
             Search
           </button>
