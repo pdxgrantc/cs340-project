@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { FaTrashAlt } from 'react-icons/fa'
 
 // Firebase
 import { auth } from '../firebase'
@@ -74,7 +75,7 @@ function Content() {
             alert('Please fill out all fields')
             return
         }
-        
+
         // package the data into a JSON object
         const data = {
             recipeName: recipeName,
@@ -104,6 +105,12 @@ function Content() {
         setRecipeDescription('')
         setRecipeInstructions('')
         setItems([{ amount: "", name: "" }])
+    }
+
+    const DeleteItem = (index) => {
+        const newItems = [...items];
+        newItems.splice(index, 1);
+        setItems(newItems);
     }
 
     return (
@@ -143,22 +150,30 @@ function Content() {
                         </div>
                         <h2 className='text-[2.25rem] font-semibold'>Ingredients</h2>
                         {items.map((item, index) => (
-                            <div className='flex gap-2'>
-                                <label key={index}>{index + 1}. </label>
-                                <input
-                                    key={index}
-                                    value={item.amount}
-                                    placeholder='Amount'
-                                    onChange={(event) => handleInputChange(index, "amount", event.target.value)}
-                                    className='outline-none text-black px-2 rounded-[4px]'
-                                />
-                                <input
-                                    key={index}
-                                    value={item.name}
-                                    placeholder='Name of ingredient'
-                                    onChange={(event) => handleInputChange(index, "name", event.target.value)}
-                                    className='outline-none text-black px-2 rounded-[4px]'
-                                />
+                            <div className='flex gap-3'>
+                                <div className='flex gap-2'>
+                                    <label key={index}>{index + 1}. </label>
+                                    <input
+                                        key={index}
+                                        value={item.amount}
+                                        placeholder='Amount'
+                                        onChange={(event) => handleInputChange(index, "amount", event.target.value)}
+                                        className='outline-none text-black px-2 rounded-[4px]'
+                                    />
+                                    <input
+                                        key={index}
+                                        value={item.name}
+                                        placeholder='Name of ingredient'
+                                        onChange={(event) => handleInputChange(index, "name", event.target.value)}
+                                        className='outline-none text-black px-2 rounded-[4px]'
+                                    />
+                                </div>
+                                <button
+                                    onClick={() => DeleteItem(index)}
+                                    className='flex my-auto hover:invert'
+                                    type='button'>
+                                    <FaTrashAlt className='my-auto'></FaTrashAlt>
+                                </button>
                             </div>
                         ))}
                         <button
