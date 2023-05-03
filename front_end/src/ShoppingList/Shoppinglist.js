@@ -59,7 +59,7 @@ function ListContent() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('/api/user/getInfo/' + user.uid);
+            const response = await fetch('/api/user/' + user.uid + '/getInfo');
             const data = await response.json();
             setDisplayName(data.display_name);
         }
@@ -76,7 +76,7 @@ function ListContent() {
     }, [user]);
 
     const clearList = () => {
-        fetch('/api/list/clear/' + user.uid, {
+        fetch('/api/list/clear/user/' + user.uid, {
             method: 'DELETE',
         })
         setShoppingList([]);

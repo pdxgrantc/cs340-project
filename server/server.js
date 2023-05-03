@@ -62,13 +62,18 @@ app.get('/api/user/:uid/getInfo', async (req, res) => {
     const [rows] = await connection.execute('SELECT display_name FROM Users WHERE id = ?', [uid]);
     await connection.end();
 
+    // set the content type header to JSON
+    res.setHeader('Content-Type', 'application/json');
+
+    // return the user's display name as valid JSON
     res.status(200).json(rows[0]);
+
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving user info from database');
   }
-
 });
+
 
 // POST request toto change and update the user's display name
 app.post('/api/user/:uid/updateInfo', async (req, res) => {
@@ -297,7 +302,7 @@ app.post('/api/recipe/:id/save/user/:uid', async (req, res) => {
 });
 
 // DELETE request to remove the recipe from the user's saved recipes
-app.delete('/api/recipe/:id/unsave/user/:id', async (req, res) => {
+app.delete('/api/recipe/:id/unsave/user/:uid', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
@@ -446,7 +451,7 @@ app.get('/api/list/user/:uid', async (req, res) => {
 });
 
 // DELETE request to clear user's list
-app.delete('/api/list/clear/:uid', async (req, res) => {
+app.delete('/api/list/clear/user/:uid', async (req, res) => {
   const uid = req.params.uid;
 
   // delete all items from the user's list
