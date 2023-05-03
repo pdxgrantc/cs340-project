@@ -103,8 +103,6 @@ app.get('/api/recipes', async (req, res) => {
 app.get('/api/recipes/search/:search', async (req, res) => {
   const search = req.params.search;
 
-  console.log('searching for: ' + search);
-
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute('SELECT * FROM Recipe WHERE title LIKE ?', ['%' + search + '%']);
