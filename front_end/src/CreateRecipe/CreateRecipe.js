@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { IoCreateSharp } from 'react-icons/io';
 
 // Firebase
 import { auth } from '../firebase'
