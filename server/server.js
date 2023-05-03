@@ -74,7 +74,6 @@ app.get('/api/user/:uid/getInfo', async (req, res) => {
   }
 });
 
-
 // POST request toto change and update the user's display name
 app.post('/api/user/:uid/updateInfo', async (req, res) => {
   const uid = req.params.uid;
