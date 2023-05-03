@@ -117,8 +117,8 @@ function ListContent() {
                                     className="align-middle h-fit whitespace-nowrap text-[2rem] leading-8 cursor-pointer w-fit border-b-[1.5px] hover:bg-button_accent_color hover:ease-[cubic-bezier(0.4, 0, 1, 1)] duration-[350ms] hover:px-[1.5vw] py-[.25rem]">
                                     Link to Recipe
                                 </Link>
-                                <button className='flex gap-5' onClick={deleteItem(item.shopping_list_id)}>
-                                    <FaTrashAlt className='text-[2rem] hover:text-red-500' />
+                                <button className='flex gap-5 my-auto hover:invert' onClick={deleteItem(item.shopping_list_id)}>
+                                    <FaTrashAlt className='my-auto text-[2rem] hover:text-red-500' />
                                 </button>
                             </div>
                         ))}
