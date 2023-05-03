@@ -102,9 +102,9 @@ function ListContent() {
                     <></>
                 }
             </div>
-            <div className='flex flex-col pl-5'>
+            <div className='flex flex-col'>
                 {shoppingList.length !== 0 ?
-                    <>
+                    <div className='pl-5'>
                         {shoppingList.map((item, index) => (
                             <div className='flex gap-10'>
                                 <div className='text-[2rem] flex gap-5'>
@@ -122,7 +122,7 @@ function ListContent() {
                                 </button>
                             </div>
                         ))}
-                    </>
+                    </div>
                     :
                     <p className='text-[2rem]'>Your shopping list is empty</p>
                 }
