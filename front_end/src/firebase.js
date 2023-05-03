@@ -16,7 +16,7 @@ export const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
 
     try {
-        await axios.post(`/api/signin`, {
+        await axios.post(`/api/user/signin`, {
             uid: result.user.uid,
             displayName: result.user.displayName,
             photoURL: result.user.photoURL,

@@ -81,7 +81,7 @@ function RecipeContent() {
     // check if the recipe is in the user's saved recipes
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('/api/user/' + user.uid + '/check/' + id);
+            const response = await fetch('/api/recipe/' + id + '/issaved/user/' + user.uid);
             const data = await response.json();
             setIsLiked(data.value);
         }
@@ -92,7 +92,7 @@ function RecipeContent() {
         if (isLiked) {
             setIsLiked(!isLiked);
             // remove the recipe from the user's saved recipes
-            const response = await fetch('/api/user/' + user.uid + '/unsave/' + id, {
+            const response = await fetch('/api/recipe/' + id + '/unsave/user/' + user.uid, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ function RecipeContent() {
         else {
             setIsLiked(!isLiked);
             // add the recipe to the user's saved recipes
-            const response = await fetch('/api/user/' + user.uid + '/save/' + id, {
+            const response = await fetch('/api/recipe/' + id + '/save/user/' + user.uid, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ function RecipeContent() {
 
     const handleAddToShoppingList = async () => {
         // add the recipe's ingredients to the user's shopping list
-        const response = await fetch('/api/user/' + user.uid + '/shopping/add/' + id, {
+        const response = await fetch('/api/recipe/' + id + '/shopping/add/user/' + user.uid, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

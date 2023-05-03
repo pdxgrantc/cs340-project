@@ -23,7 +23,7 @@ export default function Header() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('/api/user/getInfo/' + uid)
+            const response = await fetch('/api/user/' + uid + '/getInfo')
             const data = await response.json()
             setDisplayName(data.display_name)
         }

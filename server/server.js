@@ -25,8 +25,8 @@ const getConnection = async () => {
   });
 };
 
-// POST request to insert a new user into the database
-app.post('/api/signin', async (req, res) => {
+// PPOST request to handle user sign in and sign up with Firebase Auth
+app.post('/api/user/signin', async (req, res) => {
   const { uid, displayName, photoURL, email } = req.body;
 
   // check if user exists in database by querying with uid
@@ -52,11 +52,11 @@ app.post('/api/signin', async (req, res) => {
   }
 });
 
-app.get('/api/user/getInfo/:uid', async (req, res) => {
+// GET request for the header component to get the user's display name
+app.get('/api/user/:uid/getInfo', async (req, res) => {
   const uid = req.params.uid;
 
   // send the user's display name
-
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute('SELECT display_name FROM Users WHERE id = ?', [uid]);
@@ -70,7 +70,8 @@ app.get('/api/user/getInfo/:uid', async (req, res) => {
 
 });
 
-app.post('/api/user/updateInfo/:uid', async (req, res) => {
+// POST request toto change and update the user's display name
+app.post('/api/user/:uid/updateInfo', async (req, res) => {
   const uid = req.params.uid;
   const { displayName } = req.body;
 
@@ -87,7 +88,54 @@ app.post('/api/user/updateInfo/:uid', async (req, res) => {
   }
 });
 
-app.get('/api/recipes', async (req, res) => {
+// POST request to create a new recipe
+app.post('/api/recipe/create', async (req, res) => {
+  // get the recipe data from the request body
+  const recipe = req.body;
+
+  // write the name, description, and image to the database
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      'INSERT INTO Recipe (title, description, image_url) VALUES (?, ?, ?)',
+      [recipe.recipeName, recipe.recipeDescription, recipe.recipeImage]
+    );
+    await connection.end();
+
+    // get the recipe id from the database
+    const recipe_id = rows.insertId;
+
+    // write the ingredients to the database
+    for (const ingredient of recipe.items) {
+      const connection = await getConnection();
+      await connection.execute(
+        'INSERT INTO Item (name, amount, recipe_id) VALUES (?, ?, ?)',
+        [ingredient.name, ingredient.amount, recipe_id]
+      );
+      await connection.end();
+    }
+
+    // append a new line to the instructions
+    recipe.recipeInstructions += '\n';
+
+    // write the instructions to the database
+    const newConnection = await getConnection();
+    await newConnection.execute(
+      'INSERT INTO Instructions (steps, recipe_id) VALUES (?, ?)',
+      [recipe.recipeInstructions, recipe_id]
+    );
+    await newConnection.end();
+
+    res.status(200).json({ message: 'Recipe created' });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Error creating recipe');
+  }
+});
+
+// GET request to get all recipes from database
+app.get('/api/recipes/all', async (req, res) => {
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute('SELECT * FROM Recipe');
@@ -100,39 +148,7 @@ app.get('/api/recipes', async (req, res) => {
   }
 });
 
-app.get('/api/recipes/search/:search', async (req, res) => {
-  const search = req.params.search;
-
-  try {
-    const connection = await getConnection();
-    const [rows] = await connection.execute('SELECT * FROM Recipe WHERE title LIKE ?', ['%' + search + '%']);
-    await connection.end();
-
-    // check the description for the search term as well
-    const descriptionConnection = await getConnection();
-    const [descriptionRows] = await descriptionConnection.execute('SELECT * FROM Recipe WHERE description LIKE ?', ['%' + search + '%']);
-    await descriptionConnection.end();
-
-    // append the description rows to the title rows if they are not already in the title rows
-    for (const descriptionRow of descriptionRows) {
-      let found = false;
-      for (const row of rows) {
-        if (descriptionRow.id === row.id) {
-          found = true;
-        }
-      }
-      if (!found) {
-        rows.push(descriptionRow);
-      }
-    }
-
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error retrieving recipes from database');
-  }
-});
-
+// GET request to get recipe from database based on recipe id
 app.get('/api/recipe/:id', async (req, res) => {
   const recipeId = req.params.id;
   try {
@@ -176,7 +192,42 @@ app.get('/api/recipe/:id', async (req, res) => {
   }
 });
 
-app.get('/api/user/:uid/recipes', async (req, res) => {
+// GET request to get recipes from database based on search term
+app.get('/api/recipes/search/:search', async (req, res) => {
+  const search = req.params.search;
+
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute('SELECT * FROM Recipe WHERE title LIKE ?', ['%' + search + '%']);
+    await connection.end();
+
+    // check the description for the search term as well
+    const descriptionConnection = await getConnection();
+    const [descriptionRows] = await descriptionConnection.execute('SELECT * FROM Recipe WHERE description LIKE ?', ['%' + search + '%']);
+    await descriptionConnection.end();
+
+    // append the description rows to the title rows if they are not already in the title rows
+    for (const descriptionRow of descriptionRows) {
+      let found = false;
+      for (const row of rows) {
+        if (descriptionRow.id === row.id) {
+          found = true;
+        }
+      }
+      if (!found) {
+        rows.push(descriptionRow);
+      }
+    }
+
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving recipes from database');
+  }
+});
+
+// GET request to get recipes from database based on if the user has saved them
+app.get('/api/recipe/user/:uid', async (req, res) => {
   const uid = req.params.uid;
   try {
     const connection = await getConnection();
@@ -214,7 +265,7 @@ app.get('/api/user/:uid/recipes', async (req, res) => {
 });
 
 // Post request to save recipe to user in database
-app.post('/api/user/:uid/save/:id', async (req, res) => {
+app.post('/api/recipe/:id/save/user/:uid', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
@@ -245,7 +296,8 @@ app.post('/api/user/:uid/save/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/user/:uid/unsave/:id', async (req, res) => {
+// DELETE request to remove the recipe from the user's saved recipes
+app.delete('/api/recipe/:id/unsave/user/:id', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
@@ -276,7 +328,8 @@ app.delete('/api/user/:uid/unsave/:id', async (req, res) => {
   }
 });
 
-app.get('/api/user/:uid/check/:id', async (req, res) => {
+// GET request to check if recipe is saved to user
+app.get('/api/recipe/:id/issaved/user/:uid', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
@@ -301,66 +354,8 @@ app.get('/api/user/:uid/check/:id', async (req, res) => {
   }
 });
 
-app.get('/api/user/:uid/list', async (req, res) => {
-  const uid = req.params.uid;
-
-  // get the data for each item in the user's list
-  try {
-    const connection = await getConnection();
-    const [rows] = await connection.execute(
-      'SELECT * FROM Shopping_List WHERE Users_id = ?',
-      [uid]
-    );
-    await connection.end();
-
-    const items = [];
-    for (const row of rows) {
-      const connection = await getConnection();
-      const [itemRows] = await connection.execute(
-        'SELECT * FROM Item WHERE id = ?',
-        [row.Item_id]
-      );
-      await connection.end();
-
-      const item = {
-        shopping_list_id: row.id,
-        id: itemRows[0].id,
-        name: itemRows[0].name,
-        amount: itemRows[0].amount,
-        recipe_id: row.Recipe_id,
-      };
-      items.push(item);
-    }
-
-    res.status(200).json(items);
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).send('Error retrieving user list from database');
-  }
-});
-
-app.delete('/api/user/:uid/list/clear', async (req, res) => {
-  const uid = req.params.uid;
-
-  // delete all items from the user's list
-  try {
-    const connection = await getConnection();
-    await connection.execute(
-      'DELETE FROM Shopping_List WHERE Users_id = ?',
-      [uid]
-    );
-    await connection.end();
-
-    res.status(200).json({ message: 'User list cleared' });
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).send('Error clearing user list');
-  }
-});
-
-app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
+// POST request to add recipe items to user list
+app.post('/api/recipe/:id/shopping/add/user/:uid', async (req, res) => {
   const uid = req.params.uid;
   const recipe_id = req.params.id;
 
@@ -410,7 +405,69 @@ app.post('/api/user/:uid/shopping/add/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/user/:uid/shopping/remove/:shopping_list_id', async (req, res) => {
+// GET request to get all items from user's list
+app.get('/api/list/user/:uid', async (req, res) => {
+  const uid = req.params.uid;
+
+  // get the data for each item in the user's list
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      'SELECT * FROM Shopping_List WHERE Users_id = ?',
+      [uid]
+    );
+    await connection.end();
+
+    const items = [];
+    for (const row of rows) {
+      const connection = await getConnection();
+      const [itemRows] = await connection.execute(
+        'SELECT * FROM Item WHERE id = ?',
+        [row.Item_id]
+      );
+      await connection.end();
+
+      const item = {
+        shopping_list_id: row.id,
+        id: itemRows[0].id,
+        name: itemRows[0].name,
+        amount: itemRows[0].amount,
+        recipe_id: row.Recipe_id,
+      };
+      items.push(item);
+    }
+
+    res.status(200).json(items);
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving user list from database');
+  }
+});
+
+// DELETE request to clear user's list
+app.delete('/api/list/clear/:uid', async (req, res) => {
+  const uid = req.params.uid;
+
+  // delete all items from the user's list
+  try {
+    const connection = await getConnection();
+    await connection.execute(
+      'DELETE FROM Shopping_List WHERE Users_id = ?',
+      [uid]
+    );
+    await connection.end();
+
+    res.status(200).json({ message: 'User list cleared' });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Error clearing user list');
+  }
+});
+
+// DELETE request to remove a specific item from user's list
+app.delete('/api/list/user/:uid/item/remove/:shopping_list_id', async (req, res) => {
   const uid = req.params.uid;
   const shopping_list_id = req.params.shopping_list_id;
 
@@ -428,52 +485,6 @@ app.delete('/api/user/:uid/shopping/remove/:shopping_list_id', async (req, res) 
   catch (error) {
     console.error(error);
     res.status(500).send('Error removing item from user list');
-  }
-});
-
-// route to create a new recipe
-app.post('/api/recipe/create', async (req, res) => {
-  // get the recipe data from the request body
-  const recipe = req.body;
-
-  // write the name, description, and image to the database
-  try {
-    const connection = await getConnection();
-    const [rows] = await connection.execute(
-      'INSERT INTO Recipe (title, description, image_url) VALUES (?, ?, ?)',
-      [recipe.recipeName, recipe.recipeDescription, recipe.recipeImage]
-    );
-    await connection.end();
-
-    // get the recipe id from the database
-    const recipe_id = rows.insertId;
-
-    // write the ingredients to the database
-    for (const ingredient of recipe.items) {
-      const connection = await getConnection();
-      await connection.execute(
-        'INSERT INTO Item (name, amount, recipe_id) VALUES (?, ?, ?)',
-        [ingredient.name, ingredient.amount, recipe_id]
-      );
-      await connection.end();
-    }
-
-    // append a new line to the instructions
-    recipe.recipeInstructions += '\n';
-
-    // write the instructions to the database
-    const newConnection = await getConnection();
-    await newConnection.execute(
-      'INSERT INTO Instructions (steps, recipe_id) VALUES (?, ?)',
-      [recipe.recipeInstructions, recipe_id]
-    );
-    await newConnection.end();
-
-    res.status(200).json({ message: 'Recipe created' });
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).send('Error creating recipe');
   }
 });
 

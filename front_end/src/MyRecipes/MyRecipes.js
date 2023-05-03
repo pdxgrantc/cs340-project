@@ -58,7 +58,7 @@ function RecipeList() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('/api/user/' + user.uid + '/recipes/');
+      const response = await fetch('/api/recipe/user/' + user.uid);
       const data = await response.json();
       setRecipes(data);
     }

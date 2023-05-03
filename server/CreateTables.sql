@@ -1,3 +1,7 @@
+-- File: CreateTables.sql
+-- CS 340
+-- Purpose: Creates all tables with correct schema
+
 CREATE TABLE Recipe (
     id INT(11) NOT NULL AUTO_INCREMENT,
     title TEXT NOT NULL,

@@ -57,7 +57,7 @@ function RecipeList() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('/api/recipes');
+      const response = await fetch('/api/recipes/all');
       const data = await response.json();
       setRecipes(data);
       // for the description, only show the first sentence

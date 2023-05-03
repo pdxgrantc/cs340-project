@@ -62,7 +62,7 @@ function Content() {
             return;
         }
 
-        fetch('/api/user/updateInfo/' + user.uid, {
+        fetch('/api/user/' + user.uid + '/updateInfo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

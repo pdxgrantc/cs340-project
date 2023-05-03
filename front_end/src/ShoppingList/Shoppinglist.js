@@ -68,7 +68,7 @@ function ListContent() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('/api/user/' + user.uid + '/list');
+            const response = await fetch('/api/list/user/' + user.uid);
             const data = await response.json();
             setShoppingList(data);
         }
@@ -76,14 +76,14 @@ function ListContent() {
     }, [user]);
 
     const clearList = () => {
-        fetch('/api/user/' + user.uid + '/list/clear', {
+        fetch('/api/list/clear/' + user.uid, {
             method: 'DELETE',
         })
         setShoppingList([]);
     }
 
     const deleteItem = (id) => () => {
-        fetch('/api/user/' + user.uid + '/shopping/remove/' + id, {
+        fetch('/api/list/user/' + user.uid + '/item/remove/' + id, {
             method: 'DELETE',
         })
         setShoppingList(shoppingList.filter(item => item.shopping_list_id !== id)); // Remove item from list

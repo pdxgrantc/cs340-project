@@ -1,3 +1,7 @@
+-- File: SampleData.sql
+-- CS 340
+-- Purpose: Inserts sample recipe data into the database
+
 -- insert Spaghetti Bolognese recipe
 INSERT INTO
     Recipe (title, description, image_url)
