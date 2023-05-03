@@ -75,14 +75,12 @@ function RecipeList() {
   }, []);
 
   const ExecuteSearch = () => {
-    console.log('searching for: ' + search);
-
     async function fetchData() {
       const response = await fetch('/api/recipes/search/' + search);
       const data = await response.json();
 
       setRecipes(data);
-      
+
       // for the description, only show the first sentence
       for (let i = 0; i < data.length; i++) {
         let description = data[i].description;
@@ -93,7 +91,7 @@ function RecipeList() {
       for (let i = 0; i < data.length; i++) {
         data[i].description += '.';
       }
-      
+
       // set search back to empty string
       setSearch('');
     }
