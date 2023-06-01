@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { BsCardChecklist } from 'react-icons/bs'
+import { FaTrashAlt } from 'react-icons/fa';
 
 // Firebase
 import { auth } from '../firebase'
@@ -113,6 +114,19 @@ function RecipeContent() {
         }
     };
 
+    const handleDeleteRecipe = async () => {
+        // delete the recipe and its data from the database
+        const response = await fetch('/api/recipe/' + id + "/delete", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        await response.json().then(() => {
+            window.location.href = '/';
+        });
+    }
+
     const handleAddToShoppingList = async () => {
         // add the recipe's ingredients to the user's shopping list
         const response = await fetch('/api/recipe/' + id + '/shopping/add/user/' + user.uid, {
@@ -162,6 +176,12 @@ function RecipeContent() {
                                             <AiOutlineHeart className='text-[4rem] text-red-500' />
                                         </button>
                                     }
+                                </div>
+                                <div>
+                                    <button onClick={handleDeleteRecipe} className='flex gap-5 px-5 py-2 hover:bg-major_button rounded-[4px]'>
+                                        <h3 className='text-[2.5rem] align-middle'>Delete</h3>
+                                        <FaTrashAlt className='text-[4rem]' />
+                                    </button>
                                 </div>
                             </div>
                         </div>

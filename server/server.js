@@ -140,6 +140,24 @@ app.post('/api/recipe/create', async (req, res) => {
   }
 });
 
+// DELETE request to delete a recipe from the database
+app.delete('/api/recipe/:id/delete', async (req, res) => {
+  const recipeId = req.params.id;
+
+  try {
+    const connection = await getConnection();
+
+    await connection.execute('DELETE FROM Recipe WHERE id = ?', [recipeId]);
+
+    await connection.end();
+
+    res.status(200).send({ message: 'Recipe deleted'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error deleting recipe'});
+  }
+});
+
 // GET request to get all recipes from database
 app.get('/api/recipes/all', async (req, res) => {
   try {
