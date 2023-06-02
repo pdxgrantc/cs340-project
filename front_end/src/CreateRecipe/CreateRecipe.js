@@ -96,7 +96,25 @@ function Content() {
             credentials: 'include'
         }).then(response => response.json()).then(data => {
             ClearForm()
+            // pull the recipe id from the response
+            const recipeId = data.recipeId
+
+            handleAddToSaved(recipeId)
+
+            // redirect to the recipe page
+            window.location.href = `/recipe/${recipeId}`
         })
+    };
+
+    const handleAddToSaved = async (id) => {
+        // add the recipe to the user's saved recipes
+        const response = await fetch('/api/recipe/' + id + '/save/user/' + auth.currentUser.uid, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        await response.json();
     };
 
     const ClearForm = () => {

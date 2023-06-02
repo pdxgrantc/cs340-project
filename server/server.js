@@ -106,6 +106,11 @@ app.post('/api/recipe/create', async (req, res) => {
       'INSERT INTO Recipe (title, description, image_url) VALUES (?, ?, ?)',
       [recipe.recipeName, recipe.recipeDescription, recipe.recipeImage]
     );
+
+    // get the id of the new recipe using select last insert id
+    var newRecipeId = await connection.execute('SELECT LAST_INSERT_ID()');
+    newRecipeId = newRecipeId[0][0]['LAST_INSERT_ID()'];
+
     await connection.end();
 
     // get the recipe id from the database
@@ -132,7 +137,7 @@ app.post('/api/recipe/create', async (req, res) => {
     );
     await newConnection.end();
 
-    res.status(200).json({ message: 'Recipe created' });
+    res.status(200).json({ message: 'Recipe created', recipeId: newRecipeId });
   }
   catch (error) {
     console.error(error);
@@ -151,10 +156,10 @@ app.delete('/api/recipe/:id/delete', async (req, res) => {
 
     await connection.end();
 
-    res.status(200).send({ message: 'Recipe deleted'});
+    res.status(200).send({ message: 'Recipe deleted' });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: 'Error deleting recipe'});
+    res.status(500).send({ message: 'Error deleting recipe' });
   }
 });
 
@@ -518,6 +523,7 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3005;
+//const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
