@@ -7,10 +7,10 @@ NPM
 To start the server:
 1. Clone the repository
 2. Navigate to the front-end directory
-3. Run npm install and run npm run build (this creates a build directory of production react code)
+3. Run "npm install" and run "npm run build" (this creates a build directory of production react code)
 4. Navigate to the server directory
-5. Run npm install
-6. Run node server.js
+5. Run "npm install"
+6. Run "node server.js"
 7. The default port is 3005
 
 Our test server is on the OSU network at cs340-conkling.forestry.oregonstate.edu:3005
